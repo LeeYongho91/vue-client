@@ -17,6 +17,7 @@
                 :rules="emailRules"
                 label="Email"
                 type="text"
+                ref="email"
                 :name="Math.random()"
               ></v-text-field>
               <v-text-field
@@ -93,6 +94,8 @@
 </template>
 
 <script>
+import Bus from '@/utils/Bus';
+
 export default {
   data() {
     return {
@@ -113,6 +116,7 @@ export default {
       return this.emailRules;
     },
   },
+
   methods: {
     async submitForm() {
       try {
@@ -125,9 +129,10 @@ export default {
         this.$router.push('/');
       } catch (error) {
         // 에러 핸들링할 코드
-        console.log(error.response.data);
+        Bus.$emit('alertModalShow', error.response.data.message);
       } finally {
         this.initForm();
+        this.$refs.email.focus();
       }
     },
 

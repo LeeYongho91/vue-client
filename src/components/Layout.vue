@@ -129,10 +129,17 @@
         </v-card-text>
       </v-card>
     </v-footer>
+    <alert-modal
+      :modal-show="modalShow"
+      :modal-msg="modalMsg"
+      @close:modal="alertModalClose"
+    />
   </v-app>
 </template>
 <script>
 import { deleteCookie } from '@/utils/cookies';
+import AlertModal from '@/components/modal/Alert.vue';
+import Bus from '@/utils/Bus';
 
 export default {
   data() {
@@ -152,7 +159,12 @@ export default {
 
       activeBtn: 1,
       on: '',
+      modalShow: false,
+      modalMsg: '',
     };
+  },
+  components: {
+    AlertModal,
   },
   computed: {
     isUserLogin() {
@@ -171,24 +183,20 @@ export default {
       deleteCookie('til_user');
       deleteCookie('til_uuid');
     },
+    alertModalShow(msg) {
+      this.modalShow = true;
+      this.modalMsg = msg;
+    },
+    alertModalClose(value) {
+      this.modalShow = value;
+      this.modalMsg = '';
+    },
+  },
+
+  created() {
+    Bus.$on('alertModalShow', this.alertModalShow);
   },
 };
-
-// function getCookie(cname) {
-//   let name = cname + '=';
-//   let decodedCookie = decodeURIComponent(document.cookie);
-//   let ca = decodedCookie.split(';');
-//   for (let i = 0; i < ca.length; i++) {
-//     let c = ca[i];
-//     while (c.charAt(0) == ' ') {
-//       c = c.substring(1);
-//     }
-//     if (c.indexOf(name) == 0) {
-//       return c.substring(name.length, c.length);
-//     }
-//   }
-//   return '';
-// }
 </script>
 
 <style scoped>
