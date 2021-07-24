@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-dialog v-model="isModalShow" width="300">
       <v-card>
-        <v-card-title class="text-h5 primary white--text" dark>
+        <v-card-title class="text-h5 white--text" dark :class="isModalType">
           경고창
         </v-card-title>
 
@@ -25,14 +25,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      modalShowData: this.modalShow,
-    };
-  },
   props: {
     modalShow: Boolean,
     modalMsg: String,
+    modalType: String,
   },
   computed: {
     isModalShow: {
@@ -42,6 +38,9 @@ export default {
       set(value) {
         this.$emit('close:modal', value);
       },
+    },
+    isModalType() {
+      return this.modalType;
     },
   },
 };

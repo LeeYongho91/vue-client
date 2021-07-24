@@ -132,6 +132,7 @@
     <alert-modal
       :modal-show="modalShow"
       :modal-msg="modalMsg"
+      :modal-type="modalType"
       @close:modal="alertModalClose"
     />
   </v-app>
@@ -161,6 +162,7 @@ export default {
       on: '',
       modalShow: false,
       modalMsg: '',
+      modalType: '',
     };
   },
   components: {
@@ -183,18 +185,26 @@ export default {
       deleteCookie('til_user');
       deleteCookie('til_uuid');
     },
-    alertModalShow(msg) {
+    errorModalShow(msg) {
       this.modalShow = true;
       this.modalMsg = msg;
+      this.modalType = 'error';
+    },
+    normalModalShow(msg) {
+      this.modalShow = true;
+      this.modalMsg = msg;
+      this.modalType = 'primary';
     },
     alertModalClose(value) {
       this.modalShow = value;
       this.modalMsg = '';
+      this.modalType = '';
     },
   },
 
   created() {
-    Bus.$on('alertModalShow', this.alertModalShow);
+    Bus.$on('errorAlert', this.errorModalShow);
+    Bus.$on('normalAlert', this.normalModalShow);
   },
 };
 </script>

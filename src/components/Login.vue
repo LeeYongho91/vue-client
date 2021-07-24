@@ -129,7 +129,7 @@ export default {
         this.$router.push('/');
       } catch (error) {
         // 에러 핸들링할 코드
-        Bus.$emit('alertModalShow', error.response.data.message);
+        Bus.$emit('errorAlert', error.response.data.message);
       } finally {
         this.initForm();
         this.$refs.email.focus();

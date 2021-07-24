@@ -46,7 +46,7 @@ export default new Vuex.Store({
   actions: {
     async LOGIN({ dispatch }, userData) {
       const { data } = await loginUser(userData);
-      dispatch('stateCookieSet', userData);
+      dispatch('stateCookieSet', data);
       return data;
     },
 
