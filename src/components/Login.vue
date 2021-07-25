@@ -88,6 +88,9 @@
             </v-form>
           </v-card-text>
         </v-card>
+        <div align="right" class="mt-5">
+          <v-btn @click="$router.push('/signUp')">Create Account </v-btn>
+        </div>
       </v-flex>
     </v-row>
   </v-container>

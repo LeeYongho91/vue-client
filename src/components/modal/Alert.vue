@@ -3,7 +3,8 @@
     <v-dialog v-model="isModalShow" width="300">
       <v-card>
         <v-card-title class="text-h5 white--text" dark :class="isModalType">
-          경고창
+          <span v-if="isModalType === 'error'"> 경고창 </span>
+          <span v-else> 알림창 </span>
         </v-card-title>
 
         <v-card-text class="mt-8 black--text">
