@@ -14,10 +14,9 @@
             <template v-slot:append>
               <v-btn
                 depressed
-                color=""
                 class="mb-1"
                 @click="emailDoubleCheck"
-                :disabled="test"
+                :disabled="emailDoubleAble"
               >
                 중복확인
               </v-btn>
@@ -36,6 +35,7 @@
                 color=""
                 class="mb-1"
                 @click="nicknameDoubleCheck"
+                :disabled="nicknameDoubleAble"
               >
                 중복확인
               </v-btn>
@@ -99,12 +99,10 @@ export default {
       nickname: '',
       nicknameValid: true,
       nicknameRules,
-      nicknameDoubleCheckValid: true,
 
       email: '',
       emailValid: true,
       emailRules,
-      emailDoubleCheckValid: true,
 
       password: '',
       passwordRules,
@@ -114,25 +112,41 @@ export default {
 
       phoneNumber: '',
       phoneNumberRules,
+
+      doubleCheckColor: 'white',
     };
   },
 
   methods: {
     emailDoubleCheck() {
-      this.emailDoubleCheckValid = false;
+      this.emailValid = false;
       Bus.$emit('normalAlert', '사용가능한 이메일입니다.');
     },
     nicknameDoubleCheck() {
-      this.nicknameDoubleCheckValid = false;
+      this.nicknameValid = false;
+      Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
     },
   },
 
   computed: {
-    test() {
+    emailDoubleAble() {
       return !/.+@.+\..+/.test(this.email);
+    },
+    nicknameDoubleAble() {
+      return !(
+        this.nickname &&
+        this.nickname.length >= 4 &&
+        this.nickname.length <= 8
+      );
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+  color: red;
+}
+</style>
