@@ -160,6 +160,7 @@ export default {
 
       activeBtn: 1,
       on: '',
+
       modalShow: false,
       modalMsg: '',
       modalType: '',

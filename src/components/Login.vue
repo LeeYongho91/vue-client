@@ -88,8 +88,10 @@
             </v-form>
           </v-card-text>
         </v-card>
-        <div align="right" class="mt-5">
-          <v-btn @click="$router.push('/signUp')">Create Account </v-btn>
+        <div class="text-decoration-underline mt-4" align="center">
+          <span @click="$router.push('/signUp')" style="cursor: pointer"
+            >계정이 없으신가요?</span
+          >
         </div>
       </v-flex>
     </v-row>

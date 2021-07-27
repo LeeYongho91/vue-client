@@ -57,21 +57,11 @@
             type="password"
             autocomplete="off"
           ></v-text-field>
-          <v-text-field
-            label="휴대폰"
-            required
-            v-model="phoneNumber"
-            :rules="phoneNumberRules"
-            autocomplete="off"
-          >
-            <template v-slot:append>
-              <v-btn depressed color="" class="mb-1"> 인증번호받기 </v-btn>
-            </template>
-          </v-text-field>
           <v-btn
             :disabled="!valid || emailValid || nicknameValid"
             color="primary"
             class="col-12"
+            @click="signUp"
           >
             가입완료
           </v-btn>
@@ -88,9 +78,10 @@ import {
   passwordRules,
   passwordCheckRules,
   phoneNumberRules,
+  regEmail,
 } from '@/utils/validation';
 import Bus from '@/utils/Bus';
-
+import { registerUser } from '@/api/auth';
 export default {
   data() {
     return {
@@ -125,12 +116,24 @@ export default {
     nicknameDoubleCheck() {
       this.nicknameValid = false;
       Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
+      //this.$dialog.confirm('Do you want to proceed?');
+    },
+    async signUp() {
+      const email = this.email;
+      const nickname = this.nickname;
+      const password = this.password;
+      const userData = { email, nickname, password };
+      const { data } = await registerUser(userData);
+      if (data) {
+        // Bus.$emit('normalAlert', '가입이 완료되었습니다.');
+        // this.$router.push('/');
+      }
     },
   },
 
   computed: {
     emailDoubleAble() {
-      return !/.+@.+\..+/.test(this.email);
+      return !regEmail.test(this.email);
     },
     nicknameDoubleAble() {
       return !(
@@ -138,6 +141,11 @@ export default {
         this.nickname.length >= 4 &&
         this.nickname.length <= 8
       );
+    },
+  },
+  watch: {
+    email: function () {
+      this.emailValid = true;
     },
   },
 };
