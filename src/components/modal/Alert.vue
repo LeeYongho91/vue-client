@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="isModalShow" width="300">
+    <v-dialog v-model="isModalShow" width="300" persistent>
       <v-card>
         <v-card-title class="text-h5 white--text" dark :class="isModalType">
           <span v-if="isModalType === 'error'"> 경고창 </span>
@@ -15,9 +15,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="black--text" depressed @click="isModalShow = false"
-            >확인
-          </v-btn>
+
+          <v-btn color="" @click="closeAlert"> 확인 </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -30,6 +29,16 @@ export default {
     modalShow: Boolean,
     modalMsg: String,
     modalType: String,
+    modalUrl: String,
+  },
+  methods: {
+    closeAlert() {
+      if (this.modalUrl !== '') {
+        this.isModalShow = false;
+        this.$router.push(`${this.modalUrl}`);
+      }
+      this.isModalShow = false;
+    },
   },
   computed: {
     isModalShow: {
@@ -37,7 +46,7 @@ export default {
         return this.modalShow;
       },
       set(value) {
-        this.$emit('close:modal', value);
+        this.$emit('modal-close', value);
       },
     },
     isModalType() {

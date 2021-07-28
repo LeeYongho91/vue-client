@@ -129,18 +129,12 @@
         </v-card-text>
       </v-card>
     </v-footer>
-    <alert-modal
-      :modal-show="modalShow"
-      :modal-msg="modalMsg"
-      :modal-type="modalType"
-      @close:modal="alertModalClose"
-    />
+    <index-modal />
   </v-app>
 </template>
 <script>
 import { deleteCookie } from '@/utils/cookies';
-import AlertModal from '@/components/modal/Alert.vue';
-import Bus from '@/utils/Bus';
+import indexModal from '@/components/modal/index';
 
 export default {
   data() {
@@ -160,14 +154,10 @@ export default {
 
       activeBtn: 1,
       on: '',
-
-      modalShow: false,
-      modalMsg: '',
-      modalType: '',
     };
   },
   components: {
-    AlertModal,
+    indexModal,
   },
   computed: {
     isUserLogin() {
@@ -186,26 +176,6 @@ export default {
       deleteCookie('til_user');
       deleteCookie('til_uuid');
     },
-    errorModalShow(msg) {
-      this.modalShow = true;
-      this.modalMsg = msg;
-      this.modalType = 'error';
-    },
-    normalModalShow(msg) {
-      this.modalShow = true;
-      this.modalMsg = msg;
-      this.modalType = 'primary';
-    },
-    alertModalClose(value) {
-      this.modalShow = value;
-      this.modalMsg = '';
-      this.modalType = '';
-    },
-  },
-
-  created() {
-    Bus.$on('errorAlert', this.errorModalShow);
-    Bus.$on('normalAlert', this.normalModalShow);
   },
 };
 </script>

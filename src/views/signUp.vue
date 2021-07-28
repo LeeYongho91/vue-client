@@ -115,7 +115,12 @@ export default {
     },
     nicknameDoubleCheck() {
       this.nicknameValid = false;
-      Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
+
+      setTimeout(function () {
+        Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
+      }, 1);
+      // Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
+
       //this.$dialog.confirm('Do you want to proceed?');
     },
     async signUp() {
@@ -123,10 +128,14 @@ export default {
       const nickname = this.nickname;
       const password = this.password;
       const userData = { email, nickname, password };
-      const { data } = await registerUser(userData);
-      if (data) {
-        // Bus.$emit('normalAlert', '가입이 완료되었습니다.');
-        // this.$router.push('/');
+      try {
+        const { data } = await registerUser(userData);
+        if (data) {
+          Bus.$emit('redirectAlert', '가입이 완료되었습니다.', '/');
+        }
+      } catch (error) {
+        console.log(error);
+        Bus.$emit('errorAlert', '오류가 발생하였습니다.', '/');
       }
     },
   },
@@ -155,6 +164,5 @@ export default {
 button:disabled {
   cursor: not-allowed;
   pointer-events: all !important;
-  color: red;
 }
 </style>
