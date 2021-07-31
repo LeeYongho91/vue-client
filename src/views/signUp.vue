@@ -81,7 +81,11 @@ import {
   regEmail,
 } from '@/utils/validation';
 import Bus from '@/utils/Bus';
-import { registerUser } from '@/api/auth';
+import {
+  registerUser,
+  emailDoubleCheck,
+  nicknameDoubleCheck,
+} from '@/api/auth';
 export default {
   data() {
     return {
@@ -109,20 +113,36 @@ export default {
   },
 
   methods: {
-    emailDoubleCheck() {
-      this.emailValid = false;
-      Bus.$emit('normalAlert', '사용가능한 이메일입니다.');
-    },
-    nicknameDoubleCheck() {
-      this.nicknameValid = false;
+    async emailDoubleCheck() {
+      const email = this.email;
+      try {
+        const { data } = await emailDoubleCheck({ email });
 
-      setTimeout(function () {
-        Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
-      }, 1);
-      // Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
-
-      //this.$dialog.confirm('Do you want to proceed?');
+        if (data.result == 'SUCCESS') {
+          this.emailValid = false;
+          Bus.$emit('normalAlert', '사용가능한 이메일입니다.');
+        } else {
+          Bus.$emit('errorAlert', '이미 사용중인 이메일입니다.');
+        }
+      } catch (error) {
+        console.log(error.response.data);
+      }
     },
+    async nicknameDoubleCheck() {
+      const nickname = this.nickname;
+      try {
+        const { data } = await nicknameDoubleCheck({ nickname });
+        if (data.result == 'SUCCESS') {
+          this.nicknameValid = false;
+          Bus.$emit('normalAlert', '사용가능한 닉네임입니다.');
+        } else {
+          Bus.$emit('errorAlert', '이미 사용중인 닉네임입니다.');
+        }
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+
     async signUp() {
       const email = this.email;
       const nickname = this.nickname;
@@ -134,8 +154,8 @@ export default {
           Bus.$emit('redirectAlert', '가입이 완료되었습니다.', '/');
         }
       } catch (error) {
-        console.log(error);
-        Bus.$emit('errorAlert', '오류가 발생하였습니다.', '/');
+        console.log(error.response.data);
+        Bus.$emit('errorAlert', '오류가 발생하였습니다.');
       }
     },
   },

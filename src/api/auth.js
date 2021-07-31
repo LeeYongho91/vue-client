@@ -11,4 +11,14 @@ function loginUser(userData) {
   return instance.post('login', userData);
 }
 
-export { registerUser, loginUser };
+// 이메일 중복확인 API
+function emailDoubleCheck(email) {
+  return instance.post('emailDoubleCheck', email);
+}
+
+// 닉네임 중복확인 API
+function nicknameDoubleCheck(nickname) {
+  return instance.post('nicknameDoubleCheck', nickname);
+}
+
+export { registerUser, loginUser, emailDoubleCheck, nicknameDoubleCheck };

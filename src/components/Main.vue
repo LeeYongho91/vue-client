@@ -1,35 +1,21 @@
 <template>
   <div>
     <v-carousel hide-delimiters>
-      <v-carousel-item :src="require('@/assets/img/home/slider4.jpg')">
+      <v-carousel-item :src="require('@/assets/img/main/main_3.png')">
         <v-row class="fill-height" align="center" justify="center">
-          <div class="display-2 white--text pl-5 pr-5 hidden-sm-only">
-            <strong>Upto 60% + Extra 10%</strong>
-          </div>
+          <div class="display-2 white--text pl-5 pr-5 hidden-sm-only"></div>
           <br />
         </v-row>
       </v-carousel-item>
-      <v-carousel-item :src="require('@/assets/img/home/slider2.jpg')">
+      <v-carousel-item :src="require('@/assets/img/main/main_2.png')">
         <v-row class="fill-height" align="center" justify="center">
-          <div class="display-2 white--text pl-5 pr-5 hidden-sm-only">
-            <strong>Upto 60% + Extra 10%</strong>
-          </div>
+          <div class="display-2 white--text pl-5 pr-5 hidden-sm-only"></div>
           <br />
         </v-row>
       </v-carousel-item>
-      <v-carousel-item :src="require('@/assets/img/home/slider3.jpg')">
+      <v-carousel-item :src="require('@/assets/img/main/main_1.png')">
         <v-row class="fill-height" align="center" justify="center">
-          <div class="display-2 white--text pl-5 pr-5 hidden-sm-only">
-            <strong>Upto 60% + Extra 10%</strong>
-          </div>
-          <br />
-        </v-row>
-      </v-carousel-item>
-      <v-carousel-item :src="require('@/assets/img/home/slider1.jpg')">
-        <v-row class="fill-height" align="center" justify="center">
-          <div class="display-2 white--text pl-5 pr-5 hidden-sm-only">
-            <strong>Upto 60% + Extra 10%</strong>
-          </div>
+          <div class="display-2 white--text pl-5 pr-5 hidden-sm-only"></div>
           <br />
         </v-row>
       </v-carousel-item>

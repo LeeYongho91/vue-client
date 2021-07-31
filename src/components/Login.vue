@@ -5,7 +5,7 @@
         <v-card class="elevation-12">
           <v-toolbar class="primary">
             <div class="login-toolbar">
-              <v-toolbar-title>LOGIN</v-toolbar-title>
+              <v-toolbar-title>로그인</v-toolbar-title>
             </div>
           </v-toolbar>
 
@@ -34,8 +34,8 @@
                 large
                 block
                 type="submit"
-                class="primary login-btn"
-                >Sign in</v-btn
+                class="primary login-btn mb-4"
+                >로그인</v-btn
               >
 
               <v-btn

@@ -36,7 +36,7 @@
             href="javascript:void(0)"
             @click="menu.click"
           >
-            <v-list-item-title>
+            <v-list-item-title class="item-title-hover">
               <v-icon class="userMenu" color="black">{{ menu.icon }}</v-icon>
               {{ menu.title }}</v-list-item-title
             >
@@ -53,11 +53,6 @@
         </router-link>
       </v-toolbar-title>
 
-      <v-btn v-on="on" icon>
-        <v-badge content="2" value="2" color="green" overlap>
-          <v-icon>mdi-bell</v-icon>
-        </v-badge>
-      </v-btn>
       <v-btn v-on="on" href="/cart" icon>
         <v-badge content="2" value="2" color="green" overlap>
           <v-icon>mdi-cart</v-icon>
@@ -66,9 +61,10 @@
     </v-app-bar>
     <v-main>
       <v-bottom-navigation :value="activeBtn" color="primary" horizontal>
-        <a href="/" class="v-btn">
+        <v-btn to="/" :class="{ 'navi-bottom-test': istest }">
           <span>Home</span>
-        </a>
+        </v-btn>
+
         <v-menu open-on-hover offset-y>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on">
@@ -79,16 +75,18 @@
             <v-list-item
               v-for="(item, index) in items"
               :key="index"
-              href="/shop"
+              class="item-title-hover"
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-card>
         </v-menu>
-        <a href="/product" class="v-btn">
+
+        <v-btn to="/login">
           <span>Product</span>
-        </a>
-        <v-btn href="/blog">
+        </v-btn>
+
+        <v-btn to="/login">
           <span>Blog</span>
         </v-btn>
       </v-bottom-navigation>
@@ -139,13 +137,7 @@ import indexModal from '@/components/modal/index';
 export default {
   data() {
     return {
-      items: [
-        { title: 'T-Shirts' },
-        { title: 'Jackets' },
-        { title: 'Shirts' },
-        { title: 'Jeans' },
-        { title: 'Shoes' },
-      ],
+      items: [{ title: 'SKATEBOARD' }, { title: 'ETC' }],
 
       userMenus: [
         { title: 'My Page', icon: 'mdi-account-details', click: 'userMyPage' },
@@ -154,6 +146,9 @@ export default {
 
       activeBtn: 1,
       on: '',
+
+      currentRouter: this.$router.currentRoute.path,
+      istest: false,
     };
   },
   components: {
@@ -166,6 +161,9 @@ export default {
     logoLink() {
       return this.$store.getters.isLogin ? '/main' : '/login';
     },
+    test(path) {
+      return this.bottomNaviActive(path);
+    },
   },
   methods: {
     userLogout() {
@@ -176,7 +174,18 @@ export default {
       deleteCookie('til_user');
       deleteCookie('til_uuid');
     },
+    bottomNaviActive(path) {
+      console.log(path + this.currentRouter);
+      console.log(this.currentRouter);
+      if (path == this.currentRouter) {
+        console.log('ok00');
+        return true;
+      }
+
+      return false;
+    },
   },
+  created() {},
 };
 </script>
 
@@ -187,5 +196,14 @@ export default {
 
 .router-link-exact-active {
   color: black;
+}
+
+.item-title-hover:hover {
+  background-color: red;
+  cursor: pointer;
+}
+
+.navi-bottom-test {
+  background-color: red !important;
 }
 </style>

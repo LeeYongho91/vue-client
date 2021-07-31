@@ -47,6 +47,7 @@ export default {
       this.modalMsg = '';
       this.modalType = '';
     },
+    test() {},
   },
   created() {
     Bus.$on('errorAlert', this.errorModalShow);

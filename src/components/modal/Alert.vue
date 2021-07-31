@@ -1,6 +1,11 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="isModalShow" width="300" persistent>
+    <v-dialog
+      v-model="isModalShow"
+      width="300"
+      persistent
+      :retain-focus="isFocus"
+    >
       <v-card>
         <v-card-title class="text-h5 white--text" dark :class="isModalType">
           <span v-if="isModalType === 'error'"> 경고창 </span>
@@ -16,7 +21,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn color="" @click="closeAlert"> 확인 </v-btn>
+          <v-btn color="" @click="closeAlert" tabindex="-1"> 확인 </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -25,6 +30,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isFocus: false,
+    };
+  },
   props: {
     modalShow: Boolean,
     modalMsg: String,
@@ -53,7 +63,8 @@ export default {
       return this.modalType;
     },
   },
+  created() {},
 };
 </script>
 
-<style></style>
+<style scoped></style>
