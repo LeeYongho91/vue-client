@@ -61,13 +61,16 @@
     </v-app-bar>
     <v-main>
       <v-bottom-navigation :value="activeBtn" color="primary" horizontal>
-        <v-btn to="/" :class="{ 'navi-bottom-test': istest }">
+        <v-btn to="/" :class="{ 'navi-bottom-active': $route.path == '/' }">
           <span>Home</span>
         </v-btn>
 
         <v-menu open-on-hover offset-y>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on">
+            <v-btn
+              v-on="on"
+              :class="{ 'navi-bottom-active': $route.name == 'shop' }"
+            >
               <span>Shop</span>
             </v-btn>
           </template>
@@ -76,17 +79,24 @@
               v-for="(item, index) in items"
               :key="index"
               class="item-title-hover"
+              to="/"
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-card>
         </v-menu>
 
-        <v-btn to="/login">
+        <v-btn
+          to="/login/1"
+          :class="{ 'navi-bottom-active': $route.path == '/login/1' }"
+        >
           <span>Product</span>
         </v-btn>
 
-        <v-btn to="/login">
+        <v-btn
+          to="/signUp"
+          :class="{ 'navi-bottom-active': $route.path == '/signUp' }"
+        >
           <span>Blog</span>
         </v-btn>
       </v-bottom-navigation>
@@ -146,9 +156,6 @@ export default {
 
       activeBtn: 1,
       on: '',
-
-      currentRouter: this.$router.currentRoute.path,
-      istest: false,
     };
   },
   components: {
@@ -161,10 +168,8 @@ export default {
     logoLink() {
       return this.$store.getters.isLogin ? '/main' : '/login';
     },
-    test(path) {
-      return this.bottomNaviActive(path);
-    },
   },
+
   methods: {
     userLogout() {
       this.$store.commit('clearNickname');
@@ -174,18 +179,14 @@ export default {
       deleteCookie('til_user');
       deleteCookie('til_uuid');
     },
-    bottomNaviActive(path) {
-      console.log(path + this.currentRouter);
-      console.log(this.currentRouter);
-      if (path == this.currentRouter) {
-        console.log('ok00');
-        return true;
-      }
-
-      return false;
-    },
   },
-  created() {},
+
+  created() {
+    this.$router.beforeEach((to, from, next) => {
+      console.log(to);
+      next();
+    });
+  },
 };
 </script>
 
@@ -203,7 +204,7 @@ export default {
   cursor: pointer;
 }
 
-.navi-bottom-test {
-  background-color: red !important;
+.navi-bottom-active {
+  background-color: lightgrey !important;
 }
 </style>
