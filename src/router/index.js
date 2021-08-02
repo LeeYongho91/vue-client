@@ -15,14 +15,19 @@ const routes = [
         component: () => import('@/views/Main'),
       },
       {
-        path: '/login/:id',
-        component: () => import('@/views/Login'),
+        path: '/login',
+        component: () => import('@/views/auth/Login'),
         meta: { test1: 'test1', test2: 'test2' },
       },
       {
         path: '/signUp',
-        component: () => import('@/views/signUp'),
+        component: () => import('@/views/auth/signUp'),
         name: 'shop',
+      },
+      {
+        path: '/myPage',
+        component: () => import('@/views/auth/myPage'),
+        name: 'myPage',
       },
     ],
   },

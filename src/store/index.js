@@ -12,11 +12,20 @@ import { loginUser } from '@/api/auth';
 
 Vue.use(Vuex);
 
+let userState = {
+  test1: 'test1',
+  test2(state, user) {
+    console.log('test2');
+    state.user = user;
+  },
+};
+
 export default new Vuex.Store({
   state: {
     uuid: getUuidFromCookie() || '',
     nickname: getUserFromCookie() || '',
     token: getAuthFromCookie() || '',
+    ...userState,
   },
   getters: {
     isLogin(state) {

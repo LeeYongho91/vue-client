@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import LoginPage from '../components/Login';
+import LoginPage from '@/components/auth/Login';
 
 export default {
   name: '',

@@ -88,7 +88,7 @@
 
         <v-btn
           to="/login/1"
-          :class="{ 'navi-bottom-active': $route.path == '/login/1' }"
+          :class="{ 'navi-bottom-active': $route.path == '/login' }"
         >
           <span>Product</span>
         </v-btn>
@@ -150,7 +150,11 @@ export default {
       items: [{ title: 'SKATEBOARD' }, { title: 'ETC' }],
 
       userMenus: [
-        { title: 'My Page', icon: 'mdi-account-details', click: 'userMyPage' },
+        {
+          title: 'My Page',
+          icon: 'mdi-account-details',
+          click: this.userMyPage,
+        },
         { title: 'Logout', icon: 'mdi-logout', click: this.userLogout },
       ],
 
@@ -179,13 +183,9 @@ export default {
       deleteCookie('til_user');
       deleteCookie('til_uuid');
     },
-  },
-
-  created() {
-    this.$router.beforeEach((to, from, next) => {
-      console.log(to);
-      next();
-    });
+    userMyPage() {
+      this.$router.push('/myPage');
+    },
   },
 };
 </script>
