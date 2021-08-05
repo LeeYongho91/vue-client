@@ -1,50 +1,73 @@
 <template>
-  <v-card height="700px">
-    <v-navigation-drawer left>
-      <template v-slot:prepend>
-        <v-list-item two-line>
-          <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/women/81.jpg" />
-          </v-list-item-avatar>
+  <div>
+    <v-container>
+      <div class="row">
+        <div class="col-md-2">
+          <v-card height="700" width="256" class="mx-auto">
+            <v-navigation-drawer permanent>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="text-h6">
+                    내 정보
+                  </v-list-item-title>
+                  <v-list-item-subtitle> subtext </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
 
-          <v-list-item-content>
-            <v-list-item-title>Jane Smith</v-list-item-title>
-            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
+              <v-divider></v-divider>
 
-      <v-divider></v-divider>
+              <v-list dense nav>
+                <!-- <router-link :to="test"> -->
+                <v-list-item
+                  v-for="menu in menus"
+                  :key="menu.title"
+                  link
+                  tile
+                  :class="{
+                    'navi-bottom-active': $route.path == `${menu.route}`,
+                  }"
+                  :to="menu.route"
+                >
+                  <v-list-item-icon>
+                    <v-icon>{{ menu.icon }}</v-icon>
+                  </v-list-item-icon>
 
-      <v-list dense>
-        <v-list-item v-for="item in items" :key="item.title">
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      dd
-    </v-navigation-drawer>
-    <v-content> dsadsadsadsadsa </v-content>
-  </v-card>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{ menu.title }}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <!-- </router-link> -->
+              </v-list>
+            </v-navigation-drawer>
+          </v-card>
+        </div>
+        <div class="col-md-10"><router-view /></div>
+      </div>
+    </v-container>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      items: [
-        { title: 'Home', icon: 'mdi-home-city' },
-        { title: 'My Account', icon: 'mdi-account' },
-        { title: 'Users', icon: 'mdi-account-group-outline' },
+      menus: [
+        { title: '내 정보', icon: 'mdi-home-city', route: '/myPage/info' },
+        { title: '주문내역', icon: 'mdi-account', route: '/myPage/orderList' },
       ],
     };
   },
+  methods: {},
 };
 </script>
 
-<style></style>
+<style scoped>
+.navi-bottom-active {
+  background-color: lightgrey !important;
+}
+a {
+  text-decoration: none;
+}
+</style>

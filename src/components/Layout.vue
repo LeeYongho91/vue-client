@@ -184,7 +184,7 @@ export default {
       deleteCookie('til_uuid');
     },
     userMyPage() {
-      this.$router.push('/myPage');
+      this.$router.push('/myPage/info');
     },
   },
 };

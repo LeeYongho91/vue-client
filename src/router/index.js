@@ -28,6 +28,16 @@ const routes = [
         path: '/myPage',
         component: () => import('@/views/auth/myPage'),
         name: 'myPage',
+        children: [
+          {
+            path: '/myPage/info',
+            component: () => import('@/views/auth/info'),
+          },
+          {
+            path: '/myPage/orderList',
+            component: () => import('@/views/auth/orderList'),
+          },
+        ],
       },
     ],
   },
