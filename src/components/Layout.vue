@@ -60,7 +60,12 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-bottom-navigation :value="activeBtn" color="primary" horizontal>
+      <v-bottom-navigation
+        :value="activeBtn"
+        color="primary"
+        horizontal
+        class="bottom-navi"
+      >
         <v-btn to="/" :class="{ 'navi-bottom-active': $route.path == '/' }">
           <span>Home</span>
         </v-btn>
@@ -206,5 +211,10 @@ export default {
 
 .navi-bottom-active {
   background-color: lightgrey !important;
+}
+
+.bottom-navi {
+  box-shadow: none !important;
+  border: 1px solid lightgray !important;
 }
 </style>
