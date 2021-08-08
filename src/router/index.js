@@ -25,16 +25,16 @@ const routes = [
         name: 'shop',
       },
       {
-        path: '/myPage',
-        component: () => import('@/views/auth/myPage'),
-        name: 'myPage',
+        path: '/myAccount',
+        component: () => import('@/views/auth/myAccount'),
+        name: 'myAccount',
         children: [
           {
-            path: '/myPage/info',
+            path: '/myAccount/info',
             component: () => import('@/views/auth/info'),
           },
           {
-            path: '/myPage/orderList',
+            path: '/myAccount/orderList',
             component: () => import('@/views/auth/orderList'),
           },
         ],

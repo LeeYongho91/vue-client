@@ -1,13 +1,13 @@
 <template>
-  <my-page />
+  <my-account />
 </template>
 
 <script>
-import myPage from '@/components/auth/myPage';
+import myAccount from '@/components/auth/myAccount';
 
 export default {
   components: {
-    myPage,
+    myAccount,
   },
 };
 </script>

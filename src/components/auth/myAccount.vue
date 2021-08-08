@@ -6,7 +6,7 @@
           <v-navigation-drawer permanent>
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title class="text-h6"> 내 정보 </v-list-item-title>
+                <v-list-item-title class="text-h6"> 내 계정 </v-list-item-title>
                 <v-list-item-subtitle> subtext </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -50,8 +50,12 @@ export default {
   data() {
     return {
       menus: [
-        { title: '내 정보', icon: 'mdi-home-city', route: '/myPage/info' },
-        { title: '주문내역', icon: 'mdi-account', route: '/myPage/orderList' },
+        { title: '회원 정보', icon: 'mdi-home-city', route: '/myAccount/info' },
+        {
+          title: '주문내역',
+          icon: 'mdi-account',
+          route: '/myAccount/orderList',
+        },
       ],
     };
   },

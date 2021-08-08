@@ -156,11 +156,11 @@ export default {
 
       userMenus: [
         {
-          title: 'My Page',
+          title: '내 계정',
           icon: 'mdi-account-details',
           click: this.userMyPage,
         },
-        { title: 'Logout', icon: 'mdi-logout', click: this.userLogout },
+        { title: '로그아웃', icon: 'mdi-logout', click: this.userLogout },
       ],
 
       activeBtn: 1,
@@ -189,7 +189,7 @@ export default {
       deleteCookie('til_uuid');
     },
     userMyPage() {
-      this.$router.push('/myPage/info');
+      this.$router.push('/myAccount/info');
     },
   },
 };
