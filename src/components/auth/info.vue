@@ -10,7 +10,7 @@
               <v-subheader>이메일</v-subheader>
             </v-col>
             <v-col cols="4">
-              <v-text-field value="skyks5050@naver.com" readonly></v-text-field>
+              <v-text-field :value="email" readonly></v-text-field>
             </v-col>
           </v-row>
 
@@ -19,7 +19,11 @@
               <v-subheader>닉네임</v-subheader>
             </v-col>
             <v-col cols="4">
-              <v-text-field value="" v-model="nickname" :rules="nicknameRules">
+              <v-text-field
+                :value="nickname"
+                v-model="nickname"
+                :rules="nicknameRules"
+              >
                 <template v-slot:append>
                   <v-btn
                     depressed
@@ -87,7 +91,6 @@
 <script>
 import {
   nicknameRules,
-  emailRules,
   passwordRules,
   passwordCheckRules,
   phoneNumberRules,
@@ -104,8 +107,6 @@ export default {
       nicknameRules,
 
       email: '',
-      emailValid: true,
-      emailRules,
 
       password: '',
       passwordRules,
@@ -132,6 +133,15 @@ export default {
       ],
     };
   },
+  computed: {
+    nicknameDoubleAble() {
+      return !(
+        this.nickname &&
+        this.nickname.length >= 4 &&
+        this.nickname.length <= 8
+      );
+    },
+  },
   methods: {
     async nicknameDoubleCheck() {
       const nickname = this.nickname;
@@ -147,18 +157,19 @@ export default {
         console.log(error.response.data);
       }
     },
+
+    userInfoSetting() {
+      const user = JSON.parse(this.$store.getters.getUser);
+      this.email = user.email;
+      this.nickname = user.nickname;
+    },
+
     withDraw() {},
 
     accountUpdate() {},
   },
-  computed: {
-    nicknameDoubleAble() {
-      return !(
-        this.nickname &&
-        this.nickname.length >= 4 &&
-        this.nickname.length <= 8
-      );
-    },
+  created() {
+    this.userInfoSetting();
   },
 };
 </script>

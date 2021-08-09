@@ -6,10 +6,6 @@ function saveUserToCookie(value) {
   document.cookie = `til_user=${value}`;
 }
 
-function saveUuidToCookie(value) {
-  document.cookie = `til_uuid=${value}`;
-}
-
 function getAuthFromCookie() {
   return document.cookie.replace(
     /(?:(?:^|.*;\s*)til_auth\s*=\s*([^;]*).*$)|^.*$/,
@@ -20,13 +16,6 @@ function getAuthFromCookie() {
 function getUserFromCookie() {
   return document.cookie.replace(
     /(?:(?:^|.*;\s*)til_user\s*=\s*([^;]*).*$)|^.*$/,
-    '$1',
-  );
-}
-
-function getUuidFromCookie() {
-  return document.cookie.replace(
-    /(?:(?:^|.*;\s*)til_uuid\s*=\s*([^;]*).*$)|^.*$/,
     '$1',
   );
 }
@@ -46,10 +35,8 @@ function deleteAllCookie() {
 export {
   saveAuthToCookie,
   saveUserToCookie,
-  saveUuidToCookie,
   getAuthFromCookie,
   getUserFromCookie,
-  getUuidFromCookie,
   deleteCookie,
   deleteAllCookie,
 };

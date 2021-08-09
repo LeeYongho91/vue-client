@@ -4,7 +4,9 @@ export const regPhoneNumber = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
 
 export const nicknameRules = [
   v => !!v || '닉네임은 필수입니다.',
-  v => (v && v.length >= 4 && v.length <= 8) || '닉네임은 8글자 이하입니다.',
+  v =>
+    (v && v.length >= 3 && v.length <= 8) ||
+    '닉네임은 3글자이상 8글자 이하입니다.',
 ];
 
 export const emailRules = [

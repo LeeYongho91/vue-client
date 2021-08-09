@@ -3,44 +3,38 @@ import Vuex from 'vuex';
 import {
   getAuthFromCookie,
   getUserFromCookie,
-  getUuidFromCookie,
   saveAuthToCookie,
   saveUserToCookie,
-  saveUuidToCookie,
 } from '@/utils/cookies';
 import { loginUser } from '@/api/auth';
 
 Vue.use(Vuex);
 
-let userState = {
-  test1: 'test1',
-  test2(state, user) {
-    console.log('test2');
-    state.user = user;
-  },
-};
+// let userState = {
+//   test1: 'test1',
+//   test2(state, user) {
+//     console.log('test2');
+//     state.user = user;
+//   },
+// };
 
 export default new Vuex.Store({
   state: {
-    uuid: getUuidFromCookie() || '',
-    nickname: getUserFromCookie() || '',
     token: getAuthFromCookie() || '',
-    ...userState,
+    user: getUserFromCookie() || '',
+    // ...userState,
   },
   getters: {
     isLogin(state) {
-      return state.nickname !== '';
+      return state.user !== '';
+    },
+    getUser(state) {
+      return state.user;
     },
   },
   mutations: {
-    setUuid(state, uuid) {
-      state.uuid = uuid;
-    },
-    setNickname(state, nickname) {
-      state.nickname = nickname;
-    },
-    clearNickname(state) {
-      state.nickname = '';
+    setUser(state, user) {
+      state.user = user;
     },
     setToken(state, token) {
       state.token = token;
@@ -65,12 +59,10 @@ export default new Vuex.Store({
 
     stateCookieSet({ commit }, userData) {
       const data = userData;
-      commit('setUuid', data.user.uuid);
-      commit('setToken', data.token.token);
-      commit('setNickname', data.user.nickname);
+      console.log(data);
+      commit('setUser', JSON.stringify(data.user));
+      saveUserToCookie(JSON.stringify(data.user));
       saveAuthToCookie(data.token.token);
-      saveUserToCookie(data.user.nickname);
-      saveUuidToCookie(data.user.uuid);
     },
   },
 });

@@ -181,12 +181,10 @@ export default {
 
   methods: {
     userLogout() {
-      this.$store.commit('clearNickname');
       this.$store.commit('clearToken');
       this.$store.commit('clearUser');
       deleteCookie('til_auth');
       deleteCookie('til_user');
-      deleteCookie('til_uuid');
     },
     userMyPage() {
       this.$router.push('/myAccount/info');
