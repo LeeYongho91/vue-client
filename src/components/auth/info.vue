@@ -96,7 +96,9 @@ import {
   phoneNumberRules,
 } from '@/utils/validation';
 import Bus from '@/utils/Bus';
-import { nicknameDoubleCheck } from '@/api/auth';
+import { nicknameDoubleCheck, accountUpdate, userWithdraw } from '@/api/auth';
+import { deleteCookie, saveUserToCookie } from '@/utils/cookies';
+
 export default {
   data() {
     return {
@@ -118,6 +120,8 @@ export default {
       phoneNumberRules,
 
       doubleCheckColor: 'white',
+
+      uuid: '',
 
       items: [
         {
@@ -159,17 +163,58 @@ export default {
     },
 
     userInfoSetting() {
-      const user = JSON.parse(this.$store.getters.getUser);
+      const user = this.$store.getters.getUser;
       this.email = user.email;
       this.nickname = user.nickname;
+      this.uuid = user.uuid;
     },
 
-    withDraw() {},
+    async withDraw() {
+      const uuid = this.uuid;
+      try {
+        const { data } = await userWithdraw({ uuid });
+        if (data.result == 'SUCCESS') {
+          this.$store.commit('clearUser');
+          deleteCookie('til_user');
+          Bus.$emit('redirectAlert', '탈퇴가 완료되었습니다.', '/');
+        } else {
+          Bus.$emit('errorAlert', '오류가 발생하였습니다.');
+        }
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
 
-    accountUpdate() {},
+    async accountUpdate() {
+      const nickname = this.nickname;
+      const uuid = this.uuid;
+      const email = this.email;
+      const password = this.password;
+      try {
+        const { data } = await accountUpdate({ uuid, nickname, password });
+        if (data.result == 'SUCCESS') {
+          this.$store.commit('clearUser');
+          deleteCookie('til_user');
+          const user = { uuid, nickname, email };
+          this.$store.commit('setUser', JSON.stringify(user));
+          saveUserToCookie(JSON.stringify(user));
+          Bus.$emit('redirectAlert', '회원정보가 변경되었습니다.', '/');
+        } else {
+          Bus.$emit('errorAlert', '오류가 발생하였습니다.');
+        }
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+
+    pswInit() {
+      this.password = '';
+      this.passwordCheck = '';
+    },
   },
   created() {
     this.userInfoSetting();
+    //deleteCookie('til_user');
   },
 };
 </script>

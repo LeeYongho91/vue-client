@@ -29,7 +29,7 @@ export default new Vuex.Store({
       return state.user !== '';
     },
     getUser(state) {
-      return state.user;
+      return JSON.parse(state.user);
     },
   },
   mutations: {
@@ -59,7 +59,6 @@ export default new Vuex.Store({
 
     stateCookieSet({ commit }, userData) {
       const data = userData;
-      console.log(data);
       commit('setUser', JSON.stringify(data.user));
       saveUserToCookie(JSON.stringify(data.user));
       saveAuthToCookie(data.token.token);

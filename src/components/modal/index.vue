@@ -46,6 +46,7 @@ export default {
       this.modalShow = value;
       this.modalMsg = '';
       this.modalType = '';
+      this.modalUrl = '';
     },
     test() {},
   },

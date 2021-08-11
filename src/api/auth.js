@@ -21,4 +21,21 @@ function nicknameDoubleCheck(nickname) {
   return instance.post('nicknameDoubleCheck', nickname);
 }
 
-export { registerUser, loginUser, emailDoubleCheck, nicknameDoubleCheck };
+// 회원정보 수정 API
+function accountUpdate(userData) {
+  return instance.post('accountUpdate', userData);
+}
+
+// 회원탈퇴 API
+function userWithdraw(uuid) {
+  return instance.post('userWithdraw', uuid);
+}
+
+export {
+  registerUser,
+  loginUser,
+  emailDoubleCheck,
+  nicknameDoubleCheck,
+  accountUpdate,
+  userWithdraw,
+};
