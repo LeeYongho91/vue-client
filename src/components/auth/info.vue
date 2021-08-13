@@ -176,6 +176,7 @@ export default {
         if (data.result == 'SUCCESS') {
           this.$store.commit('clearUser');
           deleteCookie('til_user');
+          deleteCookie('til_auth');
           Bus.$emit('redirectAlert', '탈퇴가 완료되었습니다.', '/');
         } else {
           Bus.$emit('errorAlert', '오류가 발생하였습니다.');
@@ -206,16 +207,8 @@ export default {
         console.log(error.response.data);
       }
     },
-
-    pswInit() {
-      this.password = '';
-      this.passwordCheck = '';
-    },
   },
-  created() {
-    this.userInfoSetting();
-    //deleteCookie('til_user');
-  },
+  created() {},
 };
 </script>
 <style></style>
