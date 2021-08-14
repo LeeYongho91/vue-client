@@ -208,7 +208,9 @@ export default {
       }
     },
   },
-  created() {},
+  created() {
+    this.userInfoSetting();
+  },
 };
 </script>
 <style></style>
