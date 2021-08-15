@@ -13,6 +13,7 @@ const routes = [
       {
         path: '/',
         component: () => import('@/views/Main'),
+        name: 'main',
       },
       {
         path: '/login',
@@ -22,7 +23,7 @@ const routes = [
       {
         path: '/signUp',
         component: () => import('@/views/auth/signUp'),
-        name: 'shop',
+        name: 'signUp',
       },
       {
         path: '/myAccount',
@@ -36,6 +37,26 @@ const routes = [
           {
             path: '/myAccount/orderList',
             component: () => import('@/views/auth/orderList'),
+          },
+        ],
+      },
+      {
+        path: '/shop',
+        component: () => import('@/views/shop/shop'),
+        name: 'shop',
+        meta: { name: 'shop' },
+        children: [
+          {
+            path: '/shop/skateboard',
+            component: () => import('@/views/shop/skateBoard'),
+            name: 'skateBoard',
+            meta: { name: 'shop', id: 1, children: 2 },
+          },
+          {
+            path: '/shop/clothes',
+            component: () => import('@/views/shop/clothes'),
+            name: 'clothes',
+            meta: { name: 'shop', id: 4, children: 5 },
           },
         ],
       },

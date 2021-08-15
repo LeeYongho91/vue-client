@@ -35,8 +35,9 @@
             :key="index"
             href="javascript:void(0)"
             @click="menu.click"
+            class="item-title-hover"
           >
-            <v-list-item-title class="item-title-hover">
+            <v-list-item-title>
               <v-icon class="userMenu" color="black">{{ menu.icon }}</v-icon>
               {{ menu.title }}</v-list-item-title
             >
@@ -60,13 +61,8 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-bottom-navigation
-        :value="activeBtn"
-        color="primary"
-        horizontal
-        class="bottom-navi"
-      >
-        <v-btn to="/" :class="{ 'navi-bottom-active': $route.path == '/' }">
+      <v-bottom-navigation :value="activeBtn" color="primary" horizontal>
+        <v-btn to="/" :class="{ 'navi-bottom-active': $route.name == 'main' }">
           <span>Home</span>
         </v-btn>
 
@@ -74,38 +70,36 @@
           <template v-slot:activator="{ on }">
             <v-btn
               v-on="on"
-              :class="{ 'navi-bottom-active': $route.name == 'shop' }"
+              :class="{ 'navi-bottom-active': $route.meta.name == 'shop' }"
             >
               <span>Shop</span>
             </v-btn>
           </template>
           <v-card class="mx-auto" max-width="344" outlined>
             <v-list-item
-              v-for="(item, index) in items"
+              v-for="(menu, index) in shopMenus"
               :key="index"
               class="item-title-hover"
-              to="/"
+              :to="menu.url"
             >
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title>{{ menu.title }}</v-list-item-title>
             </v-list-item>
           </v-card>
         </v-menu>
 
-        <v-btn
-          to="/login/1"
-          :class="{ 'navi-bottom-active': $route.path == '/login' }"
-        >
-          <span>Product</span>
+        <v-btn to="/qa" :class="{ 'navi-bottom-active': $route.name == '/qa' }">
+          <span>Q&A</span>
         </v-btn>
 
         <v-btn
-          to="/signUp"
-          :class="{ 'navi-bottom-active': $route.path == '/signUp' }"
+          to="/contact"
+          :class="{ 'navi-bottom-active': $route.name == '/contact' }"
         >
-          <span>Blog</span>
+          <span>Contact</span>
         </v-btn>
       </v-bottom-navigation>
     </v-main>
+
     <router-view />
     <v-footer :padless="true">
       <v-card flat tile width="100%" class="secondary white--text text-center">
@@ -152,7 +146,10 @@ import indexModal from '@/components/modal/index';
 export default {
   data() {
     return {
-      items: [{ title: 'SKATEBOARD' }, { title: 'ETC' }],
+      shopMenus: [
+        { title: 'SkateBoard', url: '/shop/skateboard' },
+        { title: 'Clothes', url: '/shop/clothes' },
+      ],
 
       userMenus: [
         {
@@ -161,6 +158,13 @@ export default {
           click: this.userMyPage,
         },
         { title: '로그아웃', icon: 'mdi-logout', click: this.userLogout },
+      ],
+      items: [
+        { title: 'T-Shirts' },
+        { title: 'Jackets' },
+        { title: 'Shirts' },
+        { title: 'Jeans' },
+        { title: 'Shoes' },
       ],
 
       activeBtn: 1,
@@ -203,7 +207,7 @@ export default {
 }
 
 .item-title-hover:hover {
-  background-color: red;
+  background-color: lightgrey;
   cursor: pointer;
 }
 
@@ -211,8 +215,8 @@ export default {
   background-color: lightgrey !important;
 }
 
-.bottom-navi {
+/* .bottom-navi {
   box-shadow: none !important;
   border: 1px solid lightgray !important;
-}
+} */
 </style>
