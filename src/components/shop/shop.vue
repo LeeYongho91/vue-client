@@ -15,7 +15,7 @@
                 activatable
                 open-on-click
                 dense
-                @update:active="test"
+                @update:active="linkMove"
               >
               </v-treeview>
             </template>
@@ -38,42 +38,46 @@ export default {
           id: 1,
           name: 'skateBoard',
           children: [
-            { id: 2, name: 'skateBorads', to: '/shop/skateBoard' },
-            { id: 3, name: 'Helmets', to: '/shop/skateBoard' },
+            { id: 2, name: 'Borad', to: '/shop/skateBoard/board' },
+            { id: 3, name: 'Helmets', to: '/shop/skateBoard/helmet' },
           ],
         },
         {
           id: 4,
           name: 'Clothes',
           children: [
-            { id: 5, name: 'Tops', to: '/shop/clothes' },
-            { id: 6, name: 'Bottoms', to: '/shop/clothes' },
+            { id: 5, name: 'Tops', to: '/shop/clothes/tops' },
+            { id: 6, name: 'Bottoms', to: '/shop/clothes/bottoms' },
           ],
         },
       ],
       routeId: this.$route.meta.id,
       routeChildId: this.$route.meta.children,
-      route: this.$router.history.current.path,
+      route: this.$router.currentRoute.path,
     };
   },
 
   methods: {
-    test(node) {
-      console.log('TEST', node);
+    linkMove(node) {
+      const id = parseInt(node[0]);
+
+      for (let obj of this.items) {
+        let children = obj.children;
+        for (let route of children) {
+          if (route.id == id) {
+            this.$router.push(route.to).catch(() => {});
+          }
+        }
+      }
     },
   },
   created() {
-    //console.log(this.route);
+    //  console.log(this.route);
   },
   watch: {
-    $route(to, from) {
-      //   if (to.path != from.path) {
-      //     /* router path가 변경될 때마다 서버로 접근로그를 저장한다. */ axios.post(
-      //       '/lc/access-log',
-      //     );
-      //   }
-      console.log(to);
-      console.log(from);
+    $route(to) {
+      this.routeId = to.meta.id;
+      this.routeChildId = to.meta.children;
     },
   },
 };

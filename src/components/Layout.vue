@@ -70,7 +70,7 @@
           <template v-slot:activator="{ on }">
             <v-btn
               v-on="on"
-              :class="{ 'navi-bottom-active': $route.meta.name == 'shop' }"
+              :class="{ 'navi-bottom-active': $route.name == 'shop' }"
             >
               <span>Shop</span>
             </v-btn>
@@ -147,8 +147,8 @@ export default {
   data() {
     return {
       shopMenus: [
-        { title: 'SkateBoard', url: '/shop/skateboard' },
-        { title: 'Clothes', url: '/shop/clothes' },
+        { title: 'SkateBoard', url: '/shop/skateboard/board' },
+        { title: 'Clothes', url: '/shop/clothes/tops' },
       ],
 
       userMenus: [

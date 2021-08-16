@@ -49,14 +49,39 @@ const routes = [
           {
             path: '/shop/skateboard',
             component: () => import('@/views/shop/skateBoard'),
-            name: 'skateBoard',
-            meta: { name: 'shop', id: 1, children: 2 },
+            children: [
+              {
+                path: '/shop/skateboard/board',
+                component: () => import('@/views/shop/skateBoard'),
+                name: 'shop',
+                meta: { name: 'board', id: 1, children: 2 },
+              },
+              {
+                path: '/shop/skateboard/helmet',
+                component: () => import('@/views/shop/skateBoard'),
+                name: 'shop',
+                meta: { name: 'helmet', id: 1, children: 3 },
+              },
+            ],
           },
           {
             path: '/shop/clothes',
             component: () => import('@/views/shop/clothes'),
             name: 'clothes',
-            meta: { name: 'shop', id: 4, children: 5 },
+            children: [
+              {
+                path: '/shop/clothes/tops',
+                component: () => import('@/views/shop/clothes'),
+                name: 'shop',
+                meta: { name: 'tops', id: 4, children: 5 },
+              },
+              {
+                path: '/shop/clothes/bottoms',
+                component: () => import('@/views/shop/clothes'),
+                name: 'shop',
+                meta: { name: 'bottoms', id: 4, children: 6 },
+              },
+            ],
           },
         ],
       },

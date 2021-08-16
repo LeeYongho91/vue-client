@@ -1,8 +1,9 @@
 <template>
   <div>
-    <v-breadcrumbs class="pb-0" :items="breadcrums"></v-breadcrumbs>
+    <v-breadcrumbs class="pb-0 mb-2" :items="breadcrums"></v-breadcrumbs>
+    <v-divider></v-divider>
 
-    <v-row dense>
+    <v-row dense class="mb-5">
       <v-col cols="12" sm="8" class="pl-6 pt-6">
         <small>Showing 1-12 of 200 products</small>
       </v-col>
@@ -21,10 +22,11 @@
             <v-img
               class="white--text align-end"
               :aspect-ratio="16 / 9"
-              height="200px"
+              height="480px"
+              width="auto"
               :src="pro.src"
             >
-              <v-card-title>{{ pro.type }} </v-card-title>
+              <!-- <v-card-title>{{ pro.type }} </v-card-title> -->
               <v-expand-transition>
                 <div
                   v-if="hover"
@@ -83,11 +85,13 @@ export default {
           href: '',
         },
         {
-          text: '',
+          text: this.$route.meta.name,
           disabled: false,
           href: '',
         },
       ],
+
+      routeName: this.$route.meta.name,
 
       products: [
         {
@@ -95,61 +99,66 @@ export default {
           name: 'BLACK TEE',
           type: 'Jackets',
           price: '18.00',
-          src: require('@/assets/img/shop/1.jpg'),
+          src: require('@/assets/img/shop/board/board_1.png'),
         },
         {
           id: 2,
           name: 'WHITE TEE',
           type: 'Polo',
           price: '40.00',
-          src: require('@/assets/img/shop/2.jpg'),
+          src: require('@/assets/img/shop/board/board_2.png'),
         },
         {
           id: 3,
           name: 'Zara limited...',
           type: 'Denim',
           price: '25.00',
-          src: require('@/assets/img/shop/3.jpg'),
+          src: require('@/assets/img/shop/board/board_3.png'),
         },
         {
           id: 4,
           name: 'SKULL TEE',
           type: 'Jackets',
           price: '30.00',
-          src: require('@/assets/img/shop/4.jpg'),
+          src: require('@/assets/img/shop/board/board_4.png'),
         },
         {
           id: 5,
           name: 'MANGO WINTER',
           type: 'Sweaters',
           price: '50.00',
-          src: require('@/assets/img/shop/5.jpg'),
+          src: require('@/assets/img/shop/board/board_5.png'),
         },
         {
           id: 6,
           name: 'SHIRT',
           type: 'Denim',
           price: '34.00',
-          src: require('@/assets/img/shop/6.jpg'),
+          src: require('@/assets/img/shop/board/board_6.png'),
         },
         {
           id: 7,
           name: 'TRUCKER JACKET',
           type: 'Jackets',
           price: '38.00',
-          src: require('@/assets/img/shop/7.jpg'),
+          src: require('@/assets/img/shop/board/board_7.png'),
         },
         {
           id: 8,
           name: 'COATS',
           type: 'Jackets',
           price: '25.00',
-          src: require('@/assets/img/shop/8.jpg'),
+          src: require('@/assets/img/shop/board/board_8.png'),
         },
       ],
     };
   },
   created() {},
+  watch: {
+    $route(to) {
+      this.breadcrums[2].text = to.meta.name;
+    },
+  },
 };
 </script>
 
