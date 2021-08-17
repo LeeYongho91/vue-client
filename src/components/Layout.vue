@@ -62,7 +62,13 @@
     </v-app-bar>
     <v-main>
       <v-bottom-navigation :value="activeBtn" color="primary" horizontal>
-        <v-btn to="/" :class="{ 'navi-bottom-active': $route.name == 'main' }">
+        <v-btn
+          to="/main"
+          :class="{
+            'navi-bottom-active': $route.name == 'main',
+            'navi-text': $route.name != 'main',
+          }"
+        >
           <span>Home</span>
         </v-btn>
 
@@ -70,9 +76,16 @@
           <template v-slot:activator="{ on }">
             <v-btn
               v-on="on"
-              :class="{ 'navi-bottom-active': $route.name == 'shop' }"
+              :class="{
+                'navi-bottom-active': $route.meta.pathName == 'shop',
+              }"
             >
-              <span>Shop</span>
+              <span
+                :class="{
+                  'navi-text': $route.meta.pathName != 'shop',
+                }"
+                >Shop</span
+              >
             </v-btn>
           </template>
           <v-card class="mx-auto" max-width="344" outlined>
@@ -87,13 +100,24 @@
           </v-card>
         </v-menu>
 
-        <v-btn to="/qa" :class="{ 'navi-bottom-active': $route.name == '/qa' }">
+        <v-btn
+          to="/qa"
+          class="navi-text"
+          :class="{
+            'navi-bottom-active': $route.name == 'qa',
+            'navi-text': $route.name != 'qa',
+          }"
+        >
           <span>Q&A</span>
         </v-btn>
 
         <v-btn
           to="/contact"
-          :class="{ 'navi-bottom-active': $route.name == '/contact' }"
+          :class="{
+            'navi-bottom-active': $route.name == 'contact',
+            'navi-text': $route.name != 'contact',
+          }"
+          class="navi-text"
         >
           <span>Contact</span>
         </v-btn>
@@ -210,9 +234,13 @@ export default {
   background-color: lightgrey;
   cursor: pointer;
 }
+.navi-text {
+  color: grey !important;
+}
 
 .navi-bottom-active {
   background-color: lightgrey !important;
+  color: black !important;
 }
 
 /* .bottom-navi {

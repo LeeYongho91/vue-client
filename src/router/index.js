@@ -12,6 +12,10 @@ const routes = [
     children: [
       {
         path: '/',
+        redirect: '/main',
+      },
+      {
+        path: '/main',
         component: () => import('@/views/Main'),
         name: 'main',
       },
@@ -43,8 +47,7 @@ const routes = [
       {
         path: '/shop',
         component: () => import('@/views/shop/shop'),
-        name: 'shop',
-        meta: { name: 'shop' },
+
         children: [
           {
             path: '/shop/skateboard',
@@ -53,14 +56,14 @@ const routes = [
               {
                 path: '/shop/skateboard/board',
                 component: () => import('@/views/shop/skateBoard'),
-                name: 'shop',
-                meta: { name: 'board', id: 1, children: 2 },
+
+                meta: { name: 'board', id: 1, children: 2, pathName: 'shop' },
               },
               {
                 path: '/shop/skateboard/helmet',
                 component: () => import('@/views/shop/skateBoard'),
-                name: 'shop',
-                meta: { name: 'helmet', id: 1, children: 3 },
+
+                meta: { name: 'helmet', id: 1, children: 3, pathName: 'shop' },
               },
             ],
           },
@@ -72,14 +75,14 @@ const routes = [
               {
                 path: '/shop/clothes/tops',
                 component: () => import('@/views/shop/clothes'),
-                name: 'shop',
-                meta: { name: 'tops', id: 4, children: 5 },
+
+                meta: { name: 'tops', id: 4, children: 5, pathName: 'shop' },
               },
               {
                 path: '/shop/clothes/bottoms',
                 component: () => import('@/views/shop/clothes'),
-                name: 'shop',
-                meta: { name: 'bottoms', id: 4, children: 6 },
+
+                meta: { name: 'bottoms', id: 4, children: 6, pathName: 'shop' },
               },
             ],
           },
