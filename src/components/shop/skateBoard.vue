@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import { getProduct } from '@/api/shop';
 export default {
   data() {
     return {
@@ -153,7 +154,22 @@ export default {
       ],
     };
   },
-  created() {},
+
+  methods: {
+    async getProduct() {
+      try {
+        const type = this.routeName;
+        const { data } = await getProduct({ type });
+        console.log(data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+  },
+  created() {
+    console.log(this.routeName);
+    this.getProduct();
+  },
   watch: {
     $route(to) {
       this.breadcrums[2].text = to.meta.name;

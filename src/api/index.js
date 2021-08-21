@@ -7,6 +7,12 @@ function createInstance() {
   });
 }
 
+function createInstanceUrl(url) {
+  return axios.create({
+    baseURL: `${process.env.VUE_APP_API_URL}${url}`,
+  });
+}
+
 // 액시오스 초기화 함수
 function createInstanceWithAuth(url) {
   const instance = axios.create({
@@ -17,6 +23,8 @@ function createInstanceWithAuth(url) {
 
 export const instance = createInstance();
 export const posts = createInstanceWithAuth('posts');
+
+export const shop = createInstanceUrl('shop');
 
 // CREATE - posts
 // POST - posts
