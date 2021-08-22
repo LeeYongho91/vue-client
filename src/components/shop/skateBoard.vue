@@ -5,7 +5,7 @@
 
     <v-row dense class="mb-5">
       <v-col cols="12" sm="8" class="pl-6 pt-6">
-        <small>Showing 1-12 of 200 products</small>
+        <small>Showing 1-8 of {{ productsCount }} products</small>
       </v-col>
     </v-row>
 
@@ -22,9 +22,9 @@
             <v-img
               class="white--text align-end"
               :aspect-ratio="16 / 9"
-              height="480px"
+              :height="imgHeight"
               width="auto"
-              :src="pro.src"
+              :src="require(`../../assets/img/shop/${type}/${pro.img}.png`)"
             >
               <!-- <v-card-title>{{ pro.type }} </v-card-title> -->
               <v-expand-transition>
@@ -50,13 +50,15 @@
                 </div>
               </v-expand-transition>
             </v-img>
-            <v-card-text class="text--primary">
+            <v-card-text class="text--primary" style="height: 120px">
               <div>
-                <a href="/product" style="text-decoration: none">{{
-                  pro.name
-                }}</a>
+                <a
+                  href="/product"
+                  style="text-decoration: none; font-size: 10px"
+                  >{{ pro.name }}</a
+                >
               </div>
-              <div>${{ pro.price }}</div>
+              <div style="font-size: 12px">{{ pro.price }} 원</div>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -93,65 +95,12 @@ export default {
       ],
 
       routeName: this.$route.meta.name,
+      type: this.$route.meta.name,
+      products: [],
 
-      products: [
-        {
-          id: 1,
-          name: 'BLACK TEE',
-          type: 'Jackets',
-          price: '18.00',
-          src: require('@/assets/img/shop/board/board_1.png'),
-        },
-        {
-          id: 2,
-          name: 'WHITE TEE',
-          type: 'Polo',
-          price: '40.00',
-          src: require('@/assets/img/shop/board/board_2.png'),
-        },
-        {
-          id: 3,
-          name: 'Zara limited...',
-          type: 'Denim',
-          price: '25.00',
-          src: require('@/assets/img/shop/board/board_3.png'),
-        },
-        {
-          id: 4,
-          name: 'SKULL TEE',
-          type: 'Jackets',
-          price: '30.00',
-          src: require('@/assets/img/shop/board/board_4.png'),
-        },
-        {
-          id: 5,
-          name: 'MANGO WINTER',
-          type: 'Sweaters',
-          price: '50.00',
-          src: require('@/assets/img/shop/board/board_5.png'),
-        },
-        {
-          id: 6,
-          name: 'SHIRT',
-          type: 'Denim',
-          price: '34.00',
-          src: require('@/assets/img/shop/board/board_6.png'),
-        },
-        {
-          id: 7,
-          name: 'TRUCKER JACKET',
-          type: 'Jackets',
-          price: '38.00',
-          src: require('@/assets/img/shop/board/board_7.png'),
-        },
-        {
-          id: 8,
-          name: 'COATS',
-          type: 'Jackets',
-          price: '25.00',
-          src: require('@/assets/img/shop/board/board_8.png'),
-        },
-      ],
+      productsCount: 0,
+
+      imgHeight: '480px',
     };
   },
 
@@ -159,20 +108,32 @@ export default {
     async getProduct() {
       try {
         const type = this.routeName;
-        const { data } = await getProduct({ type });
-        console.log(data);
+        const { data } = await getProduct(type);
+        this.products = data.products;
+        this.productsCount = data.products.length;
+        this.type = type;
       } catch (error) {
         console.log(error.response.data);
       }
     },
+
+    imgHeightSetting() {
+      if (this.routeName == 'board') {
+        this.imgHeight = '480px';
+      } else if (this.routeName == 'helmet') {
+        this.imgHeight = '220px';
+      }
+    },
   },
   created() {
-    console.log(this.routeName);
     this.getProduct();
   },
   watch: {
     $route(to) {
       this.breadcrums[2].text = to.meta.name;
+      this.routeName = to.meta.name;
+      this.imgHeightSetting();
+      this.getProduct();
     },
   },
 };

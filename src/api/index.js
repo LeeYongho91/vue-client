@@ -22,8 +22,10 @@ function createInstanceWithAuth(url) {
 }
 
 export const instance = createInstance();
+
 export const posts = createInstanceWithAuth('posts');
 
+// shop 관련 인스턴스
 export const shop = createInstanceUrl('shop');
 
 // CREATE - posts

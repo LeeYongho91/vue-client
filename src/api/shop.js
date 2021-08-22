@@ -1,8 +1,8 @@
 import { shop } from './index';
 
-// 상품 가져오기 API
+// 타입별 상품 가져오기 API
 function getProduct(type) {
-  return shop.get('/get', type);
+  return shop.get(type);
 }
 
 export { getProduct };
