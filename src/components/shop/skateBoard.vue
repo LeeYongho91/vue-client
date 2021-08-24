@@ -109,6 +109,7 @@ export default {
       try {
         const type = this.routeName;
         const { data } = await getProduct(type);
+        console.log(data)
         this.products = data.products;
         this.productsCount = data.products.length;
         this.type = type;
