@@ -5,7 +5,10 @@
 
     <v-row dense class="mb-5">
       <v-col cols="12" sm="8" class="pl-6 pt-6">
-        <small>Showing 1-8 of {{ productsCount }} products</small>
+        <small
+          >Showing {{ startShowCount }}- {{ endShowCount }} of
+          {{ totalCount }} products</small
+        >
       </v-col>
     </v-row>
 
@@ -58,14 +61,21 @@
                   >{{ pro.name }}</a
                 >
               </div>
-              <div style="font-size: 12px">{{ pro.price }} 원</div>
+              <div style="font-size: 12px">
+                {{ pro.price | numberWithCommas }} 원
+              </div>
             </v-card-text>
           </v-card>
         </v-hover>
       </div>
     </div>
     <div class="text-center mt-12">
-      <v-pagination v-model="page" :length="6"></v-pagination>
+      <v-pagination
+        v-model="page"
+        :length="length"
+        :total-visible="totalVisible"
+        @input="pageMove"
+      ></v-pagination>
     </div>
   </div>
 </template>
@@ -76,6 +86,10 @@ export default {
   data() {
     return {
       page: 1,
+      list: 8,
+
+      totalCount: 0,
+      totalVisible: 10,
       breadcrums: [
         {
           text: 'shop',
@@ -108,10 +122,15 @@ export default {
     async getProduct() {
       try {
         const type = this.routeName;
-        const { data } = await getProduct(type);
-        console.log(data)
+        const page = this.page;
+        const list = this.list;
+
+        const params = JSON.stringify({ type, page, list });
+        const { data } = await getProduct(params);
+
         this.products = data.products;
         this.productsCount = data.products.length;
+        this.totalCount = data.count;
         this.type = type;
       } catch (error) {
         console.log(error.response.data);
@@ -125,6 +144,11 @@ export default {
         this.imgHeight = '220px';
       }
     },
+
+    pageMove(page) {
+      this.page = page;
+      this.getProduct();
+    },
   },
   created() {
     this.getProduct();
@@ -135,6 +159,18 @@ export default {
       this.routeName = to.meta.name;
       this.imgHeightSetting();
       this.getProduct();
+    },
+  },
+
+  computed: {
+    length() {
+      return Math.ceil(this.totalCount / this.list);
+    },
+    startShowCount() {
+      return (this.page - 1) * this.list + 1;
+    },
+    endShowCount() {
+      return this.startShowCount + this.productsCount - 1;
     },
   },
 };
