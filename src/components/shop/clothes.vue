@@ -1,10 +1,14 @@
 <template>
   <div>
-    <v-breadcrumbs class="pb-0" :items="breadcrums"></v-breadcrumbs>
+    <v-breadcrumbs class="pb-0 mb-2" :items="breadcrums"></v-breadcrumbs>
+    <v-divider></v-divider>
 
-    <v-row dense>
+    <v-row dense class="mb-5">
       <v-col cols="12" sm="8" class="pl-6 pt-6">
-        <small>Showing 1-12 of 200 products</small>
+        <small
+          >Showing {{ startShowCount }}- {{ endShowCount }} of
+          {{ totalCount }} products</small
+        >
       </v-col>
     </v-row>
 
@@ -21,9 +25,9 @@
             <v-img
               class="white--text align-end"
               :aspect-ratio="16 / 9"
-              height="480px"
+              :height="imgHeight"
               width="auto"
-              :src="pro.src"
+              :src="require(`../../assets/img/shop/${type}/${pro.img}.png`)"
             >
               <!-- <v-card-title>{{ pro.type }} </v-card-title> -->
               <v-expand-transition>
@@ -49,29 +53,43 @@
                 </div>
               </v-expand-transition>
             </v-img>
-            <v-card-text class="text--primary">
+            <v-card-text class="text--primary" style="height: 120px">
               <div>
-                <a href="/product" style="text-decoration: none">{{
-                  pro.name
-                }}</a>
+                <a
+                  href="/product"
+                  style="text-decoration: none; font-size: 10px"
+                  >{{ pro.name }}</a
+                >
               </div>
-              <div>{{ pro.price }}원</div>
+              <div style="font-size: 12px">
+                {{ pro.price | numberWithCommas }} 원
+              </div>
             </v-card-text>
           </v-card>
         </v-hover>
       </div>
     </div>
     <div class="text-center mt-12">
-      <v-pagination v-model="page" :length="6"></v-pagination>
+      <v-pagination
+        v-model="page"
+        :length="length"
+        :total-visible="totalVisible"
+        @input="pageMove"
+      ></v-pagination>
     </div>
   </div>
 </template>
 
 <script>
+import { getProduct } from '@/api/shop';
 export default {
   data() {
     return {
       page: 1,
+      list: 8,
+
+      totalCount: 0,
+      totalVisible: 10,
       breadcrums: [
         {
           text: 'shop',
@@ -79,7 +97,7 @@ export default {
           href: '',
         },
         {
-          text: 'clothes',
+          text: 'skateBoard',
           disabled: true,
           href: '',
         },
@@ -89,74 +107,70 @@ export default {
           href: '',
         },
       ],
-      routeName: this.$route.meta.name,
 
-      products: [
-        {
-          id: 1,
-          name: 'BLACK TEE',
-          type: 'Jackets',
-          price: '180000',
-          src: require('@/assets/img/shop/board/board_1.png'),
-        },
-        {
-          id: 2,
-          name: 'WHITE TEE',
-          type: 'Polo',
-          price: '40.00',
-          src: require('@/assets/img/shop/board/board_2.png'),
-        },
-        {
-          id: 3,
-          name: 'Zara limited...',
-          type: 'Denim',
-          price: '25.00',
-          src: require('@/assets/img/shop/board/board_3.png'),
-        },
-        {
-          id: 4,
-          name: 'SKULL TEE',
-          type: 'Jackets',
-          price: '30.00',
-          src: require('@/assets/img/shop/board/board_4.png'),
-        },
-        {
-          id: 5,
-          name: 'MANGO WINTER',
-          type: 'Sweaters',
-          price: '50.00',
-          src: require('@/assets/img/shop/board/board_5.png'),
-        },
-        {
-          id: 6,
-          name: 'SHIRT',
-          type: 'Denim',
-          price: '34.00',
-          src: require('@/assets/img/shop/board/board_6.png'),
-        },
-        {
-          id: 7,
-          name: 'TRUCKER JACKET',
-          type: 'Jackets',
-          price: '38.00',
-          src: require('@/assets/img/shop/board/board_7.png'),
-        },
-        {
-          id: 8,
-          name: 'COATS',
-          type: 'Jackets',
-          price: '25.00',
-          src: require('@/assets/img/shop/board/board_8.png'),
-        },
-      ],
+      routeName: this.$route.meta.name,
+      type: this.$route.meta.name,
+      products: [],
+
+      productsCount: 0,
+
+      imgHeight: '250px',
     };
   },
+
+  methods: {
+    async getProduct() {
+      try {
+        const type = this.routeName;
+        const page = this.page;
+        const list = this.list;
+
+        const params = JSON.stringify({ type, page, list });
+        const { data } = await getProduct(params);
+
+        this.products = data.products;
+        this.productsCount = data.products.length;
+        this.totalCount = data.count;
+        this.type = type;
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+
+    imgHeightSetting() {
+      if (this.routeName == 'top') {
+        this.imgHeight = '250px';
+      } else if (this.routeName == 'bottom') {
+        this.imgHeight = '250px';
+      }
+    },
+
+    pageMove(page) {
+      this.page = page;
+      this.getProduct();
+    },
+  },
   created() {
-    console.log(this.$route.name);
+    this.getProduct();
   },
   watch: {
     $route(to) {
       this.breadcrums[2].text = to.meta.name;
+      this.routeName = to.meta.name;
+      this.imgHeightSetting();
+      this.getProduct();
+    },
+  },
+
+  computed: {
+    length() {
+      return Math.ceil(this.totalCount / this.list);
+    },
+    startShowCount() {
+      return (this.page - 1) * this.list + 1;
+    },
+    endShowCount() {
+      return this.startShowCount + this.productsCount - 1;
     },
   },
 };

@@ -76,13 +76,13 @@ const routes = [
                 path: '/shop/clothes/tops',
                 component: () => import('@/views/shop/clothes'),
 
-                meta: { name: 'tops', id: 4, children: 5, pathName: 'shop' },
+                meta: { name: 'top', id: 4, children: 5, pathName: 'shop' },
               },
               {
                 path: '/shop/clothes/bottoms',
                 component: () => import('@/views/shop/clothes'),
 
-                meta: { name: 'bottoms', id: 4, children: 6, pathName: 'shop' },
+                meta: { name: 'bottom', id: 4, children: 6, pathName: 'shop' },
               },
             ],
           },
