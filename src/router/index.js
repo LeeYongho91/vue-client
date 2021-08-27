@@ -9,57 +9,69 @@ const routes = [
   {
     path: '/',
     component: Layout,
+
+    // 첫 페이지 /main으로 리다이렉션
     children: [
       {
         path: '/',
         redirect: '/main',
       },
+      // 메인페이지
       {
         path: '/main',
         component: () => import('@/views/Main'),
         name: 'main',
       },
+      // 로그인 페이지
       {
         path: '/login',
         component: () => import('@/views/auth/Login'),
         meta: { test1: 'test1', test2: 'test2' },
       },
+      // 회원가입 페이지
       {
         path: '/signUp',
         component: () => import('@/views/auth/signUp'),
         name: 'signUp',
       },
+      // 내 계정 페이지
       {
         path: '/myAccount',
         component: () => import('@/views/auth/myAccount'),
         name: 'myAccount',
         children: [
+          // 내 정보 페이지
           {
             path: '/myAccount/info',
             component: () => import('@/views/auth/info'),
           },
+          // 내 주문리스트 페이지
           {
             path: '/myAccount/orderList',
             component: () => import('@/views/auth/orderList'),
           },
         ],
       },
+      // shop 페이지
       {
         path: '/shop',
         component: () => import('@/views/shop/shop'),
 
         children: [
           {
+            // 스케이트 보드 페이지
             path: '/shop/skateboard',
             component: () => import('@/views/shop/skateBoard'),
             children: [
               {
+                // 보드 페이지
                 path: '/shop/skateboard/board',
                 component: () => import('@/views/shop/skateBoard'),
 
                 meta: { name: 'board', id: 1, children: 2, pathName: 'shop' },
               },
               {
+                // 헬멧 페이지
                 path: '/shop/skateboard/helmet',
                 component: () => import('@/views/shop/skateBoard'),
 
@@ -69,16 +81,19 @@ const routes = [
           },
           {
             path: '/shop/clothes',
+            // clothes 페이지
             component: () => import('@/views/shop/clothes'),
             name: 'clothes',
             children: [
               {
+                // tops 페이지
                 path: '/shop/clothes/tops',
                 component: () => import('@/views/shop/clothes'),
 
                 meta: { name: 'top', id: 4, children: 5, pathName: 'shop' },
               },
               {
+                // bottoms 페이지
                 path: '/shop/clothes/bottoms',
                 component: () => import('@/views/shop/clothes'),
 
@@ -87,6 +102,13 @@ const routes = [
             ],
           },
         ],
+      },
+      // 상품 상세페이지
+      {
+        path: 'shop/detail/:id',
+        component: () => import('@/views/shop/detail'),
+        name: 'detail',
+        meta: { pathName: 'shop' },
       },
     ],
   },
