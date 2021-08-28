@@ -110,6 +110,7 @@ export default {
   },
   created() {
     this.getProduct();
+    this.imgHeightSetting();
   },
   watch: {
     $route(to) {

@@ -4,22 +4,7 @@
       <div class="row">
         <div class="col-md-5 col-sm-5 col-xs-12">
           <v-carousel>
-            <v-carousel-item
-              :src="require('../../assets/img/shop/top/top_1.png')"
-            >
-            </v-carousel-item>
-            <v-carousel-item
-              :src="require('../../assets/img/shop/top/top_2.png')"
-            >
-            </v-carousel-item>
-            <v-carousel-item
-              :src="require('../../assets/img/shop/top/top_3.png')"
-            >
-            </v-carousel-item>
-            <v-carousel-item
-              :src="require('../../assets/img/shop/top/top_4.png')"
-            >
-            </v-carousel-item>
+            <v-carousel-item :src="img" :style="imgStyle"> </v-carousel-item>
           </v-carousel>
         </div>
         <div class="col-md-7 col-sm-7 col-xs-12">
@@ -48,14 +33,7 @@
               sodales ut etiam. Lectus arcu bibendum at varius vel pharetra.
               Morbi tristique senectus et netus et malesuada.
             </p>
-            <p class="title">SIZE</p>
-            <v-radio-group row>
-              <v-radio label="XS" value="XS"></v-radio>
-              <v-radio label="S" value="s"></v-radio>
-              <v-radio label="M" value="m"></v-radio>
-              <v-radio label="L" value="l"></v-radio>
-              <v-radio label="XL" value="xl"></v-radio>
-            </v-radio-group>
+
             <p class="title">ITEMS</p>
 
             <v-text-field
@@ -75,21 +53,22 @@
         <div class="col-sm-12 col-xs-12 col-md-12">
           <v-tabs>
             <v-tab>Description</v-tab>
-            <v-tab>Materials</v-tab>
+            <v-tab>Q/A</v-tab>
             <v-tab>REVIEWS</v-tab>
             <v-tab-item>
-              <p class="pt-10 subtitle-1 font-weight-thin">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ultricies mi eget mauris pharetra et. Vel pretium lectus quam id
-                leo in vitae turpis massa. Orci dapibus ultrices in iaculis
-                nunc. At auctor urna nunc id cursus metus. Integer feugiat
-                scelerisque varius morbi enim nunc. Aliquam sem et tortor
-                consequat id porta nibh venenatis cras. Pellentesque pulvinar
-                pellentesque habitant morbi tristique senectus et netus.
-                Malesuada nunc vel risus commodo viverra maecenas. Neque
-                volutpat ac tincidunt vitae semper quis.
-              </p>
+              <div class="row justify-center">
+                <div>
+                  <img
+                    :src="require('../../assets/img/shop/detail/detail_1.png')"
+                    alt=""
+                    height="600px"
+                    width="auto"
+                  />
+                </div>
+                <div>
+                  <img :src="img" alt="" height="800px" width="auto" />
+                </div>
+              </div>
             </v-tab-item>
             <v-tab-item>
               <p class="pt-10 subtitle-1 font-weight-thin">
@@ -134,7 +113,13 @@
               </v-list>
             </v-tab-item>
           </v-tabs>
-          <v-card-text class="pa-0 pt-4" tile outlined>
+          <v-divider></v-divider>
+          <v-card-text
+            class="pa-0 pt-4"
+            tile
+            outlined
+            style="margin-top: 100px"
+          >
             <p class="subtitle-1 font-weight-light pt-3 text-center">
               YOU MIGHT ALSO LIKE
             </p>
@@ -145,15 +130,14 @@
                   <v-card :elevation="hover ? 16 : 2">
                     <v-img
                       class="white--text align-end"
-                      height="200px"
+                      height="230px"
                       :src="require('../../assets/img/shop/top/top_1.png')"
                     >
-                      <v-card-title>Bags & Purses </v-card-title>
                     </v-img>
 
                     <v-card-text class="text--primary text-center">
-                      <div>Upto 60% + Extra 10%</div>
-                      <div>Baggit, Zara, Fossil</div>
+                      <div>BANNEROT 93 TIL COMPLETE</div>
+                      <div>16,000원</div>
                     </v-card-text>
 
                     <div class="text-center">
@@ -331,60 +315,95 @@
   </div>
 </template>
 <script>
+import { getProductById } from '@/api/shop';
+
 export default {
-  data: () => ({
-    rating: 4.5,
-    breadcrums: [
-      {
-        text: 'Home',
-        disabled: false,
-        href: 'breadcrumbs_home',
-      },
-      {
-        text: 'Clothing',
-        disabled: false,
-        href: 'breadcrumbs_clothing',
-      },
-      {
-        text: 'T-Shirts',
-        disabled: true,
-        href: 'breadcrumbs_shirts',
-      },
-    ],
-    item: 5,
-    items: [
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-        title: 'Lorem ipsum dolor?',
-        subtitle:
-          "<span class='text--primary'>Ali Connors</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Tincidunt arcu non sodales neque sodales ut etiam. Lectus arcu bibendum at varius vel pharetra. Morbi tristique senectus et netus et malesuada.\n" +
-          '\n',
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-        title:
-          'Lorem ipsum dolor <span class="grey--text text--lighten-1">4</span>',
-        subtitle:
-          "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore",
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-        title: 'Lorem ipsum dolor',
-        subtitle:
-          "<span class='text--primary'>Sandra Adams</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-        title: 'Lorem ipsum dolor',
-        subtitle: '',
-      },
-      {
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-        title: 'Lorem ipsum dolor',
-        subtitle:
-          "<span class='text--primary'>Britta Holt</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      },
-    ],
-  }),
+  data() {
+    return {
+      rating: 4.5,
+      breadcrums: [
+        {
+          text: 'Home',
+          disabled: false,
+          href: 'breadcrumbs_home',
+        },
+        {
+          text: 'Clothing',
+          disabled: false,
+          href: 'breadcrumbs_clothing',
+        },
+        {
+          text: 'T-Shirts',
+          disabled: true,
+          href: 'breadcrumbs_shirts',
+        },
+      ],
+      item: 5,
+      items: [
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          title: 'Lorem ipsum dolor?',
+          subtitle:
+            "<span class='text--primary'>Ali Connors</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Tincidunt arcu non sodales neque sodales ut etiam. Lectus arcu bibendum at varius vel pharetra. Morbi tristique senectus et netus et malesuada.\n" +
+            '\n',
+        },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+          title:
+            'Lorem ipsum dolor <span class="grey--text text--lighten-1">4</span>',
+          subtitle:
+            "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore",
+        },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+          title: 'Lorem ipsum dolor',
+          subtitle:
+            "<span class='text--primary'>Sandra Adams</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+          title: 'Lorem ipsum dolor',
+          subtitle: '',
+        },
+        {
+          avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+          title: 'Lorem ipsum dolor',
+          subtitle:
+            "<span class='text--primary'>Britta Holt</span> &mdash; Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        },
+      ],
+      product: '',
+      img: '',
+      imgWidth: '200px',
+      imgStyle: { width: '200px', height: 'auto', 'margin-left': '140px' },
+    };
+  },
+  methods: {
+    async getProduct() {
+      try {
+        const id = this.$route.params.id;
+        // console.log(id);
+        const { data } = await getProductById({ id });
+        //console.log(data);
+        this.product = data.product;
+        this.img = require(`../../assets/img/shop/${this.product.product_type}/${this.product.img}.png`);
+        this.imgHeightSetting();
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+    imgHeightSetting() {
+      if (this.product.product_type == 'board') {
+        this.imgStyle.width = '200px';
+      } else if (this.product.product_type == 'helmet') {
+        this.imgStyle.width = '350px';
+        this.imgStyle['margin-left'] = '50px';
+      }
+    },
+  },
+
+  created() {
+    this.getProduct();
+  },
 };
 </script>

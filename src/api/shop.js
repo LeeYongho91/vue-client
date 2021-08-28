@@ -5,4 +5,9 @@ function getProduct(params) {
   return shop.get(params);
 }
 
-export { getProduct };
+//  해당상품 가져오기 API
+function getProductById(id) {
+  return shop.post('/detail', id);
+}
+
+export { getProduct, getProductById };
