@@ -10,4 +10,9 @@ function getProductById(id) {
   return shop.post('/detail', id);
 }
 
-export { getProduct, getProductById };
+//  관심상품 가져오기 API
+function getLikeProducts() {
+  return shop.post('/LikeProducts');
+}
+
+export { getProduct, getProductById, getLikeProducts };

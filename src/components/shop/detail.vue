@@ -10,10 +10,10 @@
         <div class="col-md-7 col-sm-7 col-xs-12">
           <v-breadcrumbs class="pb-0" :items="breadcrums"></v-breadcrumbs>
           <div class="pl-6">
-            <p class="display-1 mb-0">Modern Black T-Shirt</p>
+            <p class="display-1 mb-0">{{ product.name }}</p>
             <v-card-actions class="pa-0">
               <p class="headline font-weight-light pt-3">
-                $65.00
+                {{ product_price }}원
                 <del style="" class="subtitle-1 font-weight-thin">$80.00</del>
               </p>
               <v-spacer></v-spacer>
@@ -27,11 +27,7 @@
               <span class="body-2 font-weight-thin"> 25 REVIEWS</span>
             </v-card-actions>
             <p class="subtitle-1 font-weight-thin">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl
-              tincidunt eget nullam non. Tincidunt arcu non sodales neque
-              sodales ut etiam. Lectus arcu bibendum at varius vel pharetra.
-              Morbi tristique senectus et netus et malesuada.
+              {{ product_detail.description }}
             </p>
 
             <p class="title">ITEMS</p>
@@ -39,7 +35,7 @@
             <v-text-field
               outlined
               style="width: 100px"
-              :value="1"
+              :value="product_detail.stock"
               dense
             ></v-text-field>
             <v-btn class="primary white--text" outlined tile dense
@@ -125,139 +121,30 @@
             </p>
             <v-divider></v-divider>
             <div class="row text-center">
-              <div class="col-md-2 col-sm-4 col-xs-12 text-center">
+              <div
+                class="col-md-3 col-sm-4 col-xs-12 text-center"
+                v-for="pro in likeProducts"
+                :key="pro.seq"
+                style="cursor: pointer"
+              >
                 <v-hover v-slot:default="{ hover }" open-delay="200">
                   <v-card :elevation="hover ? 16 : 2">
                     <v-img
                       class="white--text align-end"
-                      height="230px"
-                      :src="require('../../assets/img/shop/top/top_1.png')"
+                      height="380px"
+                      width="auto"
+                      :src="
+                        require(`../../assets/img/shop/${pro.product_type}/${pro.img}.png`)
+                      "
                     >
                     </v-img>
 
-                    <v-card-text class="text--primary text-center">
-                      <div>BANNEROT 93 TIL COMPLETE</div>
-                      <div>16,000원</div>
-                    </v-card-text>
-
-                    <div class="text-center">
-                      <v-btn class="ma-2" outlined color="info">
-                        Explore
-                      </v-btn>
-                    </div>
-                  </v-card>
-                </v-hover>
-              </div>
-              <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card :elevation="hover ? 16 : 2">
-                    <v-img
-                      class="white--text align-end"
-                      height="200px"
-                      :src="require('../../assets/img/shop/top/top_1.png')"
+                    <v-card-text
+                      class="text--primary text-center"
+                      style="height: 120px"
                     >
-                      <v-card-title>T-Shirt </v-card-title>
-                    </v-img>
-
-                    <v-card-text class="text--primary text-center">
-                      <div>Upto 50%</div>
-                      <div>Zara, Selected, Celio</div>
-                    </v-card-text>
-
-                    <div class="text-center">
-                      <v-btn class="ma-2" outlined color="info">
-                        Explore
-                      </v-btn>
-                    </div>
-                  </v-card>
-                </v-hover>
-              </div>
-              <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card :elevation="hover ? 16 : 2">
-                    <v-img
-                      class="white--text align-end"
-                      height="200px"
-                      :src="require('../../assets/img/shop/top/top_1.png')"
-                    >
-                      <v-card-title>Jeans </v-card-title>
-                    </v-img>
-
-                    <v-card-text class="text--primary text-center">
-                      <div>Upto 60% + Extra 10%</div>
-                      <div>Jack & Jones, Levis</div>
-                    </v-card-text>
-
-                    <div class="text-center">
-                      <v-btn class="ma-2" outlined color="info">
-                        Explore
-                      </v-btn>
-                    </div>
-                  </v-card>
-                </v-hover>
-              </div>
-              <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card :elevation="hover ? 16 : 2">
-                    <v-img
-                      class="white--text align-end"
-                      height="200px"
-                      :src="require('../../assets/img/shop/top/top_1.png')"
-                    >
-                      <v-card-title>Shirts </v-card-title>
-                    </v-img>
-
-                    <v-card-text class="text--primary text-center">
-                      <div>Upto 60% + Extra 10%</div>
-                      <div>Nike, Adidas, Puma</div>
-                    </v-card-text>
-
-                    <div class="text-center">
-                      <v-btn class="ma-2" outlined color="info">
-                        Explore
-                      </v-btn>
-                    </div>
-                  </v-card>
-                </v-hover>
-              </div>
-              <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card :elevation="hover ? 16 : 2">
-                    <v-img
-                      class="white--text align-end"
-                      height="200px"
-                      :src="require('../../assets/img/shop/top/top_1.png')"
-                    >
-                      <v-card-title>Shoes </v-card-title>
-                    </v-img>
-
-                    <v-card-text class="text--primary text-center">
-                      <div>Upto 60% + Extra 10%</div>
-                      <div>Nike, Adidas, Puma</div>
-                    </v-card-text>
-
-                    <div class="text-center">
-                      <v-btn class="ma-2" outlined color="info">
-                        Explore
-                      </v-btn>
-                    </div>
-                  </v-card>
-                </v-hover>
-              </div>
-              <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card :elevation="hover ? 16 : 2">
-                    <v-img
-                      class="white--text align-end"
-                      height="200px"
-                      :src="require('../../assets/img/shop/top/top_1.png')"
-                    >
-                      <v-card-title>Jackets </v-card-title>
-                    </v-img>
-
-                    <v-card-text class="text--primary text-center">
-                      <div>Upto 60% + Extra 10%</div>
-                      <div>Nike, Adidas, Puma</div>
+                      <div>{{ pro.name }}</div>
+                      <div>{{ pro.price }}원</div>
                     </v-card-text>
 
                     <div class="text-center">
@@ -315,7 +202,7 @@
   </div>
 </template>
 <script>
-import { getProductById } from '@/api/shop';
+import { getProductById, getLikeProducts } from '@/api/shop';
 
 export default {
   data() {
@@ -373,6 +260,9 @@ export default {
         },
       ],
       product: '',
+      product_detail: '',
+      product_price: '',
+      likeProducts: '',
       img: '',
       imgWidth: '200px',
       imgStyle: { width: '200px', height: 'auto', 'margin-left': '140px' },
@@ -382,16 +272,31 @@ export default {
     async getProduct() {
       try {
         const id = this.$route.params.id;
-        // console.log(id);
         const { data } = await getProductById({ id });
-        //console.log(data);
-        this.product = data.product;
-        this.img = require(`../../assets/img/shop/${this.product.product_type}/${this.product.img}.png`);
-        this.imgHeightSetting();
+
+        this.productSetting(data);
       } catch (error) {
         console.log(error.response.data);
       }
     },
+    async getLikeProducts() {
+      try {
+        const { data } = await getLikeProducts();
+        this.likeProducts = data.Products;
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+    productSetting(data) {
+      this.product = data.product[0];
+      this.product_detail = data.product[1];
+      const product_price = this.product.price;
+      this.product_price =
+        this.$options.filters.numberWithCommas(product_price);
+      this.img = require(`../../assets/img/shop/${this.product.product_type}/${this.product.img}.png`);
+      this.imgHeightSetting();
+    },
+
     imgHeightSetting() {
       if (this.product.product_type == 'board') {
         this.imgStyle.width = '200px';
@@ -404,6 +309,7 @@ export default {
 
   created() {
     this.getProduct();
+    this.getLikeProducts();
   },
 };
 </script>
