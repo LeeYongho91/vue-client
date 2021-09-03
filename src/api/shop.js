@@ -15,4 +15,9 @@ function getLikeProducts() {
   return shop.post('/LikeProducts');
 }
 
-export { getProduct, getProductById, getLikeProducts };
+//  Q/A 글쓰기 API
+function postQa(params) {
+  return shop.post('/qa/post', params);
+}
+
+export { getProduct, getProductById, getLikeProducts, postQa };
