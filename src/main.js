@@ -4,12 +4,13 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import VueCookies from 'vue-cookies';
-import { numberWithCommas } from '@/utils/filters';
+import { numberWithCommas, formatDate } from '@/utils/filters';
 
 Vue.config.productionTip = false;
 Vue.use(VueCookies);
 
 Vue.filter('numberWithCommas', numberWithCommas);
+Vue.filter('formatDate', formatDate);
 
 new Vue({
   router,

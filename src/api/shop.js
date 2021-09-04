@@ -20,4 +20,9 @@ function postQa(params) {
   return shop.post('/qa/post', params);
 }
 
-export { getProduct, getProductById, getLikeProducts, postQa };
+//  Q/A 리스트 가져오기 API
+function getQa(id) {
+  return shop.post('/qa', id);
+}
+
+export { getProduct, getProductById, getLikeProducts, postQa, getQa };
