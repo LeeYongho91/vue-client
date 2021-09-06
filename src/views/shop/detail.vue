@@ -55,7 +55,7 @@
               <description :img="img" />
             </v-tab-item>
             <v-tab-item>
-              <qa :qaList="qaList" :qaAnswerList="qaAnswerList" />
+              <qa :product_id="product_id" />
             </v-tab-item>
             <v-tab-item>
               <v-list :three-line="true" avatar="true">
@@ -134,7 +134,7 @@
   </div>
 </template>
 <script>
-import { getProductById, getLikeProducts, getQa } from '@/api/shop';
+import { getProductById, getLikeProducts } from '@/api/shop';
 import likeProducts from '@/components/shop/likeProducts.vue';
 import description from '@/components/shop/description.vue';
 import qa from '@/components/shop/qa.vue';
@@ -209,8 +209,6 @@ export default {
       imgWidth: '200px',
       imgStyle: { width: '200px', height: 'auto', 'margin-left': '140px' },
       product_id: this.$route.params.id,
-      qaList: '',
-      qaAnswerList: '',
     };
   },
   methods: {
@@ -232,17 +230,7 @@ export default {
         console.log(error.response.data);
       }
     },
-    async getQa() {
-      try {
-        const id = this.product_id;
-        const { data } = await getQa({ id });
-        console.log(data);
-        this.qaList = data.qaList;
-        this.qaAnswerList = data.qaAnswerList;
-      } catch (error) {
-        console.log(error.response.data);
-      }
-    },
+
     productSetting(data) {
       this.product = data.product[0];
       this.product_detail = data.product[1];
@@ -266,7 +254,6 @@ export default {
   created() {
     this.getProduct();
     this.getLikeProducts();
-    this.getQa();
   },
 };
 </script>

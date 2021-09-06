@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <template v-for="(list, index) in qaList">
+        <template v-for="(list, index) in qaList" @refresh="getQa">
           <tr :key="index" @click="toggle(index)" class="qa_row">
             <td>{{ list.seq }}</td>
             <td>{{ answerFlagSetting(list.answer_flag) }}</td>
@@ -41,7 +41,12 @@
         </template>
       </tbody>
     </v-simple-table>
-    페이징 처리~~
+    <v-pagination
+      v-model="page"
+      :length="length"
+      :total-visible="totalVisible"
+      @input="pageMove"
+    ></v-pagination>
     <div align="right">
       <v-btn @click="write" class="primary mb-2">작성하기</v-btn>
     </div>
@@ -50,24 +55,31 @@
 </template>
 <script>
 import qaWrite from '@/components/shop/qaWrite.vue';
+import { getQa } from '@/api/shop';
+
 export default {
   components: {
     qaWrite,
   },
   props: {
-    qaList: {
-      type: Array,
-      required: true,
-    },
-    qaAnswerList: {
-      type: Array,
+    product_id: {
+      type: String,
       required: true,
     },
   },
+
   data() {
     return {
       dialog: false,
       opened: [],
+      page: 1,
+      list: 10,
+
+      totalCount: 0,
+      totalVisible: 10,
+
+      qaList: [],
+      qaAnswerList: [],
     };
   },
   methods: {
@@ -104,6 +116,34 @@ export default {
     qaAnswerFind(seq) {
       return this.qaAnswerList.find(e => e.qa_id == seq);
     },
+
+    async getQa() {
+      try {
+        const id = this.product_id;
+        const page = this.page;
+        const list = this.list;
+        const { data } = await getQa({ id, page, list });
+        console.log(data);
+        this.qaList = data.qaList;
+        this.qaAnswerList = data.qaAnswerList;
+        this.totalCount = data.count;
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+    pageMove(page) {
+      this.page = page;
+      this.getQa();
+    },
+  },
+
+  computed: {
+    length() {
+      return Math.ceil(this.totalCount / this.list);
+    },
+  },
+  created() {
+    this.getQa();
   },
 };
 </script>

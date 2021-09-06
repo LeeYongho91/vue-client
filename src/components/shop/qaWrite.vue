@@ -85,7 +85,6 @@ export default {
   methods: {
     closeDialog() {
       this.isDialogShow = false;
-      console.log(this.active);
     },
     async write() {
       try {
