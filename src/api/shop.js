@@ -15,7 +15,7 @@ function getLikeProducts() {
   return shop.post('/LikeProducts');
 }
 
-//  Q/A 글쓰기 API
+//  Q/A 등록하기 API
 function postQa(params) {
   return shop.post('/qa/post', params);
 }
@@ -25,4 +25,22 @@ function getQa(id) {
   return shop.post('/qa', id);
 }
 
-export { getProduct, getProductById, getLikeProducts, postQa, getQa };
+// review 리스트 가져오기 API
+function getReview(id) {
+  return shop.post('/review', id);
+}
+
+//  REVIEW 등록하기 API
+function postReview(params) {
+  return shop.post('/review/post', params);
+}
+
+export {
+  getProduct,
+  getProductById,
+  getLikeProducts,
+  postQa,
+  getQa,
+  getReview,
+  postReview,
+};

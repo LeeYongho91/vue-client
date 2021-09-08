@@ -36,3 +36,11 @@ export const phoneNumberRules = [
   v => !!v || '휴대폰번호는 필수입니다.',
   v => regPhoneNumber.test(v) || '휴대폰번호 형식에 맞지 않습니다.',
 ];
+
+export const qaTitleRules = [v => !!v || '제목은 필수입니다.'];
+
+export const qaContentRules = [v => !!v || '내용은 필수입니다.'];
+
+export const reviewTitleRules = [v => !!v || '제목은 필수입니다.'];
+
+export const reviewContentRules = [v => !!v || '내용은 필수입니다.'];
