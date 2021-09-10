@@ -8,13 +8,13 @@
           </v-carousel>
         </div>
         <div class="col-md-7 col-sm-7 col-xs-12">
-          <v-breadcrumbs class="pb-0" :items="breadcrums"></v-breadcrumbs>
+          <v-breadcrumbs class="pb-0 mb-5" :items="breadcrums"></v-breadcrumbs>
           <div class="pl-6">
             <p class="display-1 mb-0">{{ product.name }}</p>
             <v-card-actions class="pa-0">
               <p class="headline font-weight-light pt-3">
                 {{ product_price }}원
-                <del style="" class="subtitle-1 font-weight-thin">$80.00</del>
+                <!-- <del style="" class="subtitle-1 font-weight-thin">$80.00</del> -->
               </p>
               <v-spacer></v-spacer>
               <v-rating
@@ -22,8 +22,11 @@
                 background-color="warning lighten-3"
                 color="warning"
                 dense
+                v-model="reviewAvg"
               ></v-rating>
-              <span class="body-2 font-weight-thin"> 25 REVIEWS</span>
+              <span class="body-2 font-weight-thin">
+                {{ reviewCount }} REVIEWS</span
+              >
             </v-card-actions>
             <p class="subtitle-1 font-weight-thin">
               {{ product_detail.description }}
@@ -46,7 +49,7 @@
       </div>
       <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-12">
-          <v-tabs>
+          <v-tabs grow v-model="active_tab">
             <v-tab>Description</v-tab>
             <v-tab>Q/A</v-tab>
             <v-tab>REVIEWS</v-tab>
@@ -54,12 +57,16 @@
               <description :img="img" />
             </v-tab-item>
             <v-tab-item>
-              <qa :product_id="product_id" />
+              <qa :product_id="product_id" @tab-active="tabActive" />
             </v-tab-item>
             <v-tab-item>
               <v-list :three-line="true" avatar="true">
                 <v-list-item-group color="primary">
-                  <review :product_id="product_id" />
+                  <review
+                    :product_id="product_id"
+                    @reviewInfo="reviewInfoSetting"
+                    @tab-active="tabActive"
+                  />
                 </v-list-item-group>
               </v-list>
             </v-tab-item>
@@ -145,19 +152,19 @@ export default {
     return {
       breadcrums: [
         {
-          text: 'Home',
-          disabled: false,
-          href: 'breadcrumbs_home',
-        },
-        {
-          text: 'Clothing',
-          disabled: false,
-          href: 'breadcrumbs_clothing',
-        },
-        {
-          text: 'T-Shirts',
+          text: this.$route.meta.pathName,
           disabled: true,
-          href: 'breadcrumbs_shirts',
+          href: '',
+        },
+        {
+          text: this.$route.query.cate_1,
+          disabled: true,
+          href: '',
+        },
+        {
+          text: this.$route.query.cate_2,
+          disabled: false,
+          href: '',
         },
       ],
 
@@ -169,6 +176,11 @@ export default {
       imgWidth: '200px',
       imgStyle: { width: '200px', height: 'auto', 'margin-left': '140px' },
       product_id: this.$route.params.id,
+
+      reviewCount: 0,
+      reviewAvg: 0,
+
+      active_tab: 0,
     };
   },
   methods: {
@@ -176,7 +188,6 @@ export default {
       try {
         const id = this.product_id;
         const { data } = await getProductById({ id });
-
         this.productSetting(data);
       } catch (error) {
         console.log(error.response.data);
@@ -199,6 +210,7 @@ export default {
         this.$options.filters.numberWithCommas(product_price);
       this.img = require(`../../assets/img/shop/${this.product.product_type}/${this.product.img}.png`);
       this.imgHeightSetting();
+      this.reviewInfoSetting(data.reviewInfo);
     },
 
     imgHeightSetting() {
@@ -207,13 +219,27 @@ export default {
       } else if (this.product.product_type == 'helmet') {
         this.imgStyle.width = '350px';
         this.imgStyle['margin-left'] = '50px';
+      } else if (this.product.product_type == 'top') {
+        this.imgStyle.width = '400px';
+        this.imgStyle['margin-left'] = '40px';
       }
+    },
+
+    reviewInfoSetting(info) {
+      this.reviewAvg = info.reviewAvg;
+      this.reviewCount = info.reviewCount;
+    },
+
+    tabActive(idx) {
+      this.active_tab = idx;
     },
   },
 
   created() {
     this.getProduct();
     this.getLikeProducts();
+    console.log(this.$route);
+    console.log(this.$route.params);
   },
 };
 </script>

@@ -2,6 +2,7 @@
   <div>
     <v-list-item v-for="(review, index) in reviewList" :key="index">
       <v-list-item-content>
+        <div class="mb-5">작성자: {{ review.nickname }}</div>
         <v-list-item-title v-html="review.title"></v-list-item-title
         ><v-rating
           v-model="review.star"
@@ -44,7 +45,7 @@ export default {
     return {
       dialog: false,
       page: 1,
-      list: 10,
+      list: 5,
 
       totalCount: 0,
       totalVisible: 10,
@@ -59,6 +60,8 @@ export default {
     },
     closeDialog(value) {
       this.dialog = value;
+      this.getReview();
+      this.$emit('tab-active', 2);
     },
 
     async getReview() {
@@ -67,7 +70,6 @@ export default {
         const page = this.page;
         const list = this.list;
         const { data } = await getReview({ id, page, list });
-        console.log(data);
         this.reviewList = data.reviewList;
         this.totalCount = data.count;
       } catch (error) {

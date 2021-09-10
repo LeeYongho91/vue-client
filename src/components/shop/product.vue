@@ -26,7 +26,7 @@
             >
               <v-btn
                 v-if="hover"
-                @click="$router.push(`/shop/detail/${product.seq}`)"
+                @click="routeMove(product.seq)"
                 class=""
                 outlined
                 >VIEW</v-btn
@@ -66,6 +66,22 @@ export default {
     imgHeight: {
       type: String,
       required: true,
+    },
+    breadcrums: {
+      type: Array,
+      required: true,
+    },
+  },
+
+  methods: {
+    routeMove(product_id) {
+      this.$router.push({
+        path: `/shop/detail/${product_id}`,
+        query: {
+          cate_1: `${this.breadcrums[1].text}`,
+          cate_2: `${this.breadcrums[2].text}`,
+        },
+      });
     },
   },
 };

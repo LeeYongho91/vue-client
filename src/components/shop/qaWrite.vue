@@ -62,7 +62,9 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="primary" @click="write" :disabled="!valid">등록</v-btn>
+          <v-btn class="primary" @click="qaWrite" :disabled="!valid"
+            >등록</v-btn
+          >
           <v-btn class="error" text @click="closeDialog"> 닫기</v-btn>
         </v-card-actions>
       </v-card>
@@ -104,7 +106,7 @@ export default {
       this.content = '';
       this.password = '';
     },
-    async write() {
+    async qaWrite() {
       try {
         const product_id = this.$route.params.id;
         const nickname = this.$store.getters.getUser.nickname;

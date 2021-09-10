@@ -73,7 +73,7 @@ export default {
       dialog: false,
       opened: [],
       page: 1,
-      list: 10,
+      list: 5,
 
       totalCount: 0,
       totalVisible: 10,
@@ -88,6 +88,8 @@ export default {
     },
     closeDialog(value) {
       this.dialog = value;
+      this.getQa();
+      this.$emit('tab-active', 1);
     },
     toggle(id) {
       const index = this.opened.indexOf(id);
@@ -123,7 +125,7 @@ export default {
         const page = this.page;
         const list = this.list;
         const { data } = await getQa({ id, page, list });
-        console.log(data);
+        //  console.log(data);
         this.qaList = data.qaList;
         this.qaAnswerList = data.qaAnswerList;
         this.totalCount = data.count;

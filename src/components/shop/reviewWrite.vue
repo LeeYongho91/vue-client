@@ -112,7 +112,6 @@ export default {
         if (data) {
           //Bus.$emit('normalAlert', '등록이 완료되었습니다');
           this.closeDialog();
-          console.log(this.star);
         }
       } catch (error) {
         console.log(error.response.data);

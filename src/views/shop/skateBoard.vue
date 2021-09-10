@@ -21,6 +21,7 @@
         :product="pro"
         :type="type"
         :imgHeight="imgHeight"
+        :breadcrums="breadcrums"
       ></product>
     </div>
     <div class="text-center mt-12">

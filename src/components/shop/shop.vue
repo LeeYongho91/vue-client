@@ -44,10 +44,10 @@ export default {
         },
         {
           id: 4,
-          name: 'Clothes',
+          name: 'clothes',
           children: [
-            { id: 5, name: 'Tops', to: '/shop/clothes/tops' },
-            { id: 6, name: 'Bottoms', to: '/shop/clothes/bottoms' },
+            { id: 5, name: 'Top', to: '/shop/clothes/top' },
+            { id: 6, name: 'Bottom', to: '/shop/clothes/bottom' },
           ],
         },
       ],

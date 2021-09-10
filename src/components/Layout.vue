@@ -172,7 +172,7 @@ export default {
     return {
       shopMenus: [
         { title: 'SkateBoard', url: '/shop/skateboard/board' },
-        { title: 'Clothes', url: '/shop/clothes/tops' },
+        { title: 'Clothes', url: '/shop/clothes/top' },
       ],
 
       userMenus: [

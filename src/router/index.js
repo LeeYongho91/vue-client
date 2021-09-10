@@ -86,15 +86,15 @@ const routes = [
             name: 'clothes',
             children: [
               {
-                // tops 페이지
-                path: '/shop/clothes/tops',
+                // top 페이지
+                path: '/shop/clothes/top',
                 component: () => import('@/views/shop/clothes'),
 
                 meta: { name: 'top', id: 4, children: 5, pathName: 'shop' },
               },
               {
-                // bottoms 페이지
-                path: '/shop/clothes/bottoms',
+                // bottom 페이지
+                path: '/shop/clothes/bottom',
                 component: () => import('@/views/shop/clothes'),
 
                 meta: { name: 'bottom', id: 4, children: 6, pathName: 'shop' },
