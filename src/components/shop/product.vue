@@ -31,7 +31,7 @@
                 outlined
                 >VIEW</v-btn
               >
-              <v-btn v-if="hover" href="/product" class="ml-2" outlined
+              <v-btn v-if="hover" @click="cartAdd" class="ml-2" outlined
                 >CART</v-btn
               >
             </div>
@@ -82,6 +82,20 @@ export default {
           cate_2: `${this.breadcrums[2].text}`,
         },
       });
+    },
+    cartAdd() {
+      const id = this.product.seq;
+      let product = localStorage.getItem(id);
+
+      if (product !== null) {
+        product = JSON.parse(product);
+        product['count'] += 1;
+        localStorage.setItem(id, JSON.stringify(product));
+      } else {
+        let product = this.product;
+        product['count'] = 1;
+        localStorage.setItem(id, JSON.stringify(product));
+      }
     },
   },
 };

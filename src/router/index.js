@@ -110,6 +110,13 @@ const routes = [
         name: 'detail',
         meta: { pathName: 'shop' },
       },
+
+      // 장바구니
+      {
+        path: 'shop/cart',
+        component: () => import('@/views/shop/cart'),
+        name: 'cart',
+      },
     ],
   },
   {

@@ -16,6 +16,7 @@
                     label="제목"
                     filled
                     :rules="reviewTitleRules"
+                    ref="title"
                   ></v-text-field>
                 </v-col>
 
@@ -27,6 +28,7 @@
                     auto-grow
                     v-model="content"
                     :rules="reviewContentRules"
+                    ref="content"
                   ></v-textarea>
                 </v-col>
 
@@ -93,6 +95,12 @@ export default {
       this.title = '';
       this.content = '';
       this.password = '';
+      this.dialogReset();
+    },
+    dialogReset() {
+      this.$refs.title.reset();
+      this.$refs.content.reset();
+      this.star = 0;
     },
     async write() {
       try {

@@ -14,6 +14,7 @@
                     label="제목"
                     filled
                     :rules="qaTitleRules"
+                    ref="title"
                   ></v-text-field>
                 </v-col>
 
@@ -25,6 +26,7 @@
                     auto-grow
                     v-model="content"
                     :rules="qaContentRules"
+                    ref="content"
                   ></v-textarea>
                 </v-col>
                 <v-col cols="12">
@@ -102,9 +104,11 @@ export default {
   methods: {
     closeDialog() {
       this.isDialogShow = false;
-      this.title = '';
-      this.content = '';
-      this.password = '';
+      this.dialogReset();
+    },
+    dialogReset() {
+      this.$refs.title.reset();
+      this.$refs.content.reset();
     },
     async qaWrite() {
       try {

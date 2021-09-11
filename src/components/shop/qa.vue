@@ -13,7 +13,7 @@
       <tbody>
         <template v-for="(list, index) in qaList" @refresh="getQa">
           <tr :key="index" @click="toggle(index)" class="qa_row">
-            <td>{{ list.seq }}</td>
+            <td>{{ index + 1 }}</td>
             <td>{{ answerFlagSetting(list.answer_flag) }}</td>
             <td>
               {{ list.title

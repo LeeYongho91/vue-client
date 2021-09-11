@@ -54,7 +54,7 @@
         </router-link>
       </v-toolbar-title>
 
-      <v-btn v-on="on" href="/cart" icon>
+      <v-btn v-on="on" @click="$router.push('/shop/cart')" icon>
         <v-badge content="2" value="2" color="green" overlap>
           <v-icon>mdi-cart</v-icon>
         </v-badge>

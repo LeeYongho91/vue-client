@@ -238,8 +238,6 @@ export default {
   created() {
     this.getProduct();
     this.getLikeProducts();
-    console.log(this.$route);
-    console.log(this.$route.params);
   },
 };
 </script>
