@@ -55,7 +55,7 @@
       </v-toolbar-title>
 
       <v-btn v-on="on" @click="$router.push('/shop/cart')" icon>
-        <v-badge :content="count" color="green" overlap>
+        <v-badge :content="count" :color="cartColor()" overlap>
           <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
@@ -232,6 +232,13 @@ export default {
     },
     cartCountRefresh() {
       this.cartCount();
+    },
+
+    cartColor() {
+      if (this.count > 0) {
+        return 'green';
+      }
+      return '';
     },
   },
 
