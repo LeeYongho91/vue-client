@@ -55,7 +55,7 @@
       </v-toolbar-title>
 
       <v-btn v-on="on" @click="$router.push('/shop/cart')" icon>
-        <v-badge :content="cartCount" color="green" overlap>
+        <v-badge :content="count" color="green" overlap>
           <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
@@ -166,6 +166,7 @@
 <script>
 import { deleteCookie } from '@/utils/cookies';
 import indexModal from '@/components/modal/index';
+import Bus from '@/utils/Bus';
 
 export default {
   data() {
@@ -194,7 +195,7 @@ export default {
       activeBtn: 1,
       on: '',
 
-      test: localStorage.length,
+      count: 0,
     };
   },
   components: {
@@ -206,22 +207,6 @@ export default {
     },
     logoLink() {
       return this.$store.getters.isLogin ? '/main' : '/login';
-    },
-    cartCount() {
-      let count = 0;
-      for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        if (key != 'loglevel:webpack-dev-server') {
-          count++;
-        }
-      }
-      return count;
-    },
-  },
-
-  watch: {
-    test() {
-      console.log('test');
     },
   },
 
@@ -235,6 +220,24 @@ export default {
     userMyPage() {
       this.$router.push('/myAccount/info');
     },
+    cartCount() {
+      let count = 0;
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key != 'loglevel:webpack-dev-server') {
+          count++;
+        }
+      }
+      this.count = count;
+    },
+    cartCountRefresh() {
+      this.cartCount();
+    },
+  },
+
+  created() {
+    this.cartCount();
+    Bus.$on('cartCountRefresh', this.cartCountRefresh);
   },
 };
 </script>

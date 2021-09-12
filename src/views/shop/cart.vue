@@ -66,6 +66,8 @@
 </template>
 <script>
 import CartProduct from '@/components/shop/CartProduct.vue';
+import Bus from '@/utils/Bus';
+
 export default {
   data() {
     return {
@@ -88,6 +90,7 @@ export default {
     },
     cartRefresh(id) {
       this.cartList = this.cartList.filter(el => el.seq !== id);
+      Bus.$emit('cartCountRefresh');
     },
     countChange(proInfo) {
       for (let i = 0; i <= this.cartList.length; i++) {

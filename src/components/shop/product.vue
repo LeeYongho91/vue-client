@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import Bus from '@/utils/Bus';
+
 export default {
   props: {
     product: {
@@ -96,6 +98,7 @@ export default {
         product['count'] = 1;
         localStorage.setItem(id, JSON.stringify(product));
       }
+      Bus.$emit('cartCountRefresh');
     },
   },
 };
