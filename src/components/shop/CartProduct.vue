@@ -60,6 +60,22 @@ export default {
       return this.pro.price * this.count;
     },
   },
+
+  watch: {
+    count() {
+      if (this.count < 1) {
+        return;
+      }
+
+      this.$emit('countChange', {
+        id: this.pro.seq,
+        count: this.count,
+        price: this.pro.price,
+      });
+    },
+  },
+
+  created() {},
 };
 </script>
 

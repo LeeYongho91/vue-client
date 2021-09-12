@@ -55,7 +55,7 @@
       </v-toolbar-title>
 
       <v-btn v-on="on" @click="$router.push('/shop/cart')" icon>
-        <v-badge content="2" value="2" color="green" overlap>
+        <v-badge :content="cartCount" color="green" overlap>
           <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
@@ -193,6 +193,8 @@ export default {
 
       activeBtn: 1,
       on: '',
+
+      test: localStorage.length,
     };
   },
   components: {
@@ -204,6 +206,22 @@ export default {
     },
     logoLink() {
       return this.$store.getters.isLogin ? '/main' : '/login';
+    },
+    cartCount() {
+      let count = 0;
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key != 'loglevel:webpack-dev-server') {
+          count++;
+        }
+      }
+      return count;
+    },
+  },
+
+  watch: {
+    test() {
+      console.log('test');
     },
   },
 
