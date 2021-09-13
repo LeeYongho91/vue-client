@@ -23,9 +23,11 @@
         style="width: 80px"
         single-line
         outlined
-        :value="pro.count"
+        :value="count"
         v-model="count"
         type="number"
+        ref="inputRef"
+        min="1"
       ></v-text-field>
     </td>
     <td>{{ totalPrice | numberWithCommas }}원</td>
@@ -34,6 +36,8 @@
 </template>
 
 <script>
+//import Bus from '@/utils/Bus';
+
 export default {
   props: {
     pro: {
@@ -45,6 +49,7 @@ export default {
   data() {
     return {
       count: this.pro.count,
+      test: '',
     };
   },
 
@@ -52,6 +57,9 @@ export default {
     cartDelete() {
       localStorage.removeItem(this.pro.seq);
       this.$emit('cartRefresh', this.pro.seq);
+    },
+    countCheck() {
+      return true;
     },
   },
 
@@ -63,14 +71,9 @@ export default {
 
   watch: {
     count() {
-      if (this.count < 1) {
-        return;
-      }
-
       this.$emit('countChange', {
         id: this.pro.seq,
         count: this.count,
-        price: this.pro.price,
       });
     },
   },
